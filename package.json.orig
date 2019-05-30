@@ -1,0 +1,19 @@
+{
+  "bin": {"violations-command-line": "jdeploy-bundle/jdeploy.js"},
+  "author": "Tomas Bjerre",
+  "description": "Command line tool that will find report files from static code analysis, present and optionally fail the command.",
+  "keywords": [
+    "violation", "static code analysis", "Checkstyle", "CPPLint", "CPPCheck", "CSSLint", "Findbugs", "Flake8", "PyLint", "Pep8", "Mccabe", "PyFlakes", "JSHint", "Lint", "PerlCritic", "PMD", "ReSharper", "XMLLint"
+  ],
+  "homepage": "https://github.com/tomasbjerre/violations-command-line",
+  "repository": "git@github.com:tomasbjerre/violations-command-line.git",
+  "main": "index.js",
+  "preferGlobal": true,
+  "version": "VERSION.0",
+  "jdeploy": {"jar": "build/libs/violations-command-line-VERSION.jar"},
+  "dependencies": {"shelljs": "^0.7.5"},
+  "license": "Apache 2",
+  "name": "violations-command-line",
+  "files": ["jdeploy-bundle"],
+  "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+}
