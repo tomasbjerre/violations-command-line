@@ -27,7 +27,7 @@ apply from: project.buildscript.classLoader.getResource('violations.gradle').toU
 
 
 dependencies {
- compile 'se.bjurr.violations:violations-git-lib:1.22'
+ compile 'se.bjurr.violations:violations-git-lib:1.23'
  compile 'se.softhouse:jargo:0.1.1'
  compile 'org.slf4j:slf4j-simple:1.8.0-beta2'
  testCompile 'junit:junit:4.12'

@@ -1,9 +1,13 @@
 package se.bjurr.violations.main;
 
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.StandardOpenOption.WRITE;
 import static se.bjurr.violations.git.ViolationsReporterApi.violationsReporterApi;
 import static se.bjurr.violations.git.ViolationsReporterDetailLevel.VERBOSE;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.model.SEVERITY.INFO;
+import static se.bjurr.violations.lib.model.codeclimate.CodeClimateTransformer.fromViolations;
 import static se.softhouse.jargo.Arguments.booleanArgument;
 import static se.softhouse.jargo.Arguments.enumArgument;
 import static se.softhouse.jargo.Arguments.fileArgument;
@@ -14,6 +18,9 @@ import static se.softhouse.jargo.Arguments.stringArgument;
 import static se.softhouse.jargo.CommandLineParser.withArguments;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +32,7 @@ import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
+import se.bjurr.violations.violationslib.com.google.gson.GsonBuilder;
 import se.softhouse.jargo.Argument;
 import se.softhouse.jargo.ArgumentException;
 import se.softhouse.jargo.ParsedArguments;
@@ -48,6 +56,8 @@ public class Runner {
   private int maxSeverityColumnWidth;
   private int maxLineColumnWidth;
   private int maxMessageColumnWidth;
+  private File codeClimateFile;
+  private File violationsFile;
 
   public void main(final String args[]) throws Exception {
     final Argument<?> helpArgument = helpArgument("-h", "--help");
@@ -70,7 +80,14 @@ public class Runner {
             .defaultValue(INFO)
             .description("Minimum severity level to report.")
             .build();
-
+    final Argument<File> codeClimateFileArg =
+        fileArgument("-code-climate", "-cc")
+            .description("Create a CodeClimate file with all the violations.")
+            .build();
+    final Argument<File> violationsFileArg =
+        fileArgument("-violations-file", "-vf")
+            .description("Create a JSON file with all the violations.")
+            .build();
     final Argument<Integer> maxViolationsArg =
         integerArgument("-max-violations", "-mv")
             .defaultValue(Integer.MAX_VALUE)
@@ -156,6 +173,8 @@ public class Runner {
                   helpArgument, //
                   violationsArg, //
                   minSeverityArg, //
+                  codeClimateFileArg, //
+                  violationsFileArg, //
                   detailLevelArg, //
                   printViolationsArg, //
                   diffFrom, //
@@ -190,7 +209,16 @@ public class Runner {
       this.maxLineColumnWidth = parsed.get(maxLineColumnWidth);
       this.maxMessageColumnWidth = parsed.get(maxMessageColumnWidth);
       this.gitRepo = parsed.get(gitRepoArg);
-
+      if (parsed.wasGiven(codeClimateFileArg)) {
+        this.codeClimateFile = parsed.get(codeClimateFileArg);
+      } else {
+        this.codeClimateFile = null;
+      }
+      if (parsed.wasGiven(violationsFileArg)) {
+        this.violationsFile = parsed.get(violationsFileArg);
+      } else {
+        this.violationsFile = null;
+      }
       if (parsed.wasGiven(showDebugInfo)) {
         System.out.println(
             "Given parameters:\n"
@@ -220,8 +248,24 @@ public class Runner {
       allParsedViolationsInDiff.addAll(getAllViolationsInDiff(parsedViolations));
     }
 
+    if (this.codeClimateFile != null) {
+      createJsonFile(fromViolations(allParsedViolations), this.codeClimateFile);
+    }
+    if (this.violationsFile != null) {
+      createJsonFile(allParsedViolations, this.violationsFile);
+    }
     checkGlobalViolations(allParsedViolations);
     checkDiffViolations(allParsedViolationsInDiff);
+  }
+
+  private void createJsonFile(final Object object, final File file) throws IOException {
+    final String codeClimateReport = new GsonBuilder().setPrettyPrinting().create().toJson(object);
+    Files.write(
+        file.toPath(),
+        codeClimateReport.getBytes(StandardCharsets.UTF_8),
+        TRUNCATE_EXISTING,
+        CREATE,
+        WRITE);
   }
 
   private void checkGlobalViolations(final List<Violation> violations) throws ScriptException {
