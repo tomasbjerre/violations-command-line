@@ -19,15 +19,21 @@ import static se.softhouse.jargo.CommandLineParser.withArguments;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.script.ScriptException;
 import se.bjurr.violations.git.ViolationsGit;
 import se.bjurr.violations.git.ViolationsReporterDetailLevel;
+import se.bjurr.violations.lib.FilteringViolationsLogger;
+import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
@@ -58,6 +64,8 @@ public class Runner {
   private int maxMessageColumnWidth;
   private File codeClimateFile;
   private File violationsFile;
+  private boolean showDebugInfo;
+  private ViolationsLogger violationsLogger;
 
   public void main(final String args[]) throws Exception {
     final Argument<?> helpArgument = helpArgument("-h", "--help");
@@ -219,7 +227,8 @@ public class Runner {
       } else {
         this.violationsFile = null;
       }
-      if (parsed.wasGiven(showDebugInfo)) {
+      this.showDebugInfo = parsed.wasGiven(showDebugInfo);
+      if (this.showDebugInfo) {
         System.out.println(
             "Given parameters:\n"
                 + Arrays.asList(args)
@@ -230,32 +239,49 @@ public class Runner {
                 + this.toString());
       }
 
-      gitChangelogPluginTasks();
+      this.violationsLogger =
+          new ViolationsLogger() {
+            @Override
+            public void log(final Level level, final String string) {
+              System.out.println(level + " " + string);
+            }
+
+            @Override
+            public void log(final Level level, final String string, final Throwable t) {
+              final StringWriter sw = new StringWriter();
+              t.printStackTrace(new PrintWriter(sw));
+              System.out.println(level + " " + string + "\n" + sw.toString());
+            }
+          };
+      if (!this.showDebugInfo) {
+        this.violationsLogger = FilteringViolationsLogger.filterLevel(this.violationsLogger);
+      }
+      this.performTask();
     } catch (final ArgumentException exception) {
       System.out.println(exception.getMessageAndUsage());
       System.exit(1);
     }
   }
 
-  public void gitChangelogPluginTasks() throws Exception {
-    final List<Violation> allParsedViolations = new ArrayList<>();
-    final List<Violation> allParsedViolationsInDiff = new ArrayList<>();
-    for (final List<String> configuredViolation : violations) {
-      final List<Violation> parsedViolations = getAllParsedViolations(configuredViolation);
+  public void performTask() throws Exception {
+    final Set<Violation> allParsedViolations = new TreeSet<>();
+    final Set<Violation> allParsedViolationsInDiff = new TreeSet<>();
+    for (final List<String> configuredViolation : this.violations) {
+      final Set<Violation> parsedViolations = this.getAllParsedViolations(configuredViolation);
 
-      allParsedViolations.addAll(getFiltered(parsedViolations, minSeverity));
+      allParsedViolations.addAll(this.getFiltered(parsedViolations, this.minSeverity));
 
-      allParsedViolationsInDiff.addAll(getAllViolationsInDiff(parsedViolations));
+      allParsedViolationsInDiff.addAll(this.getAllViolationsInDiff(parsedViolations));
     }
 
     if (this.codeClimateFile != null) {
-      createJsonFile(fromViolations(allParsedViolations), this.codeClimateFile);
+      this.createJsonFile(fromViolations(allParsedViolations), this.codeClimateFile);
     }
     if (this.violationsFile != null) {
-      createJsonFile(allParsedViolations, this.violationsFile);
+      this.createJsonFile(allParsedViolations, this.violationsFile);
     }
-    checkGlobalViolations(allParsedViolations);
-    checkDiffViolations(allParsedViolationsInDiff);
+    this.checkGlobalViolations(allParsedViolations);
+    this.checkDiffViolations(allParsedViolationsInDiff);
   }
 
   private void createJsonFile(final Object object, final File file) throws IOException {
@@ -268,88 +294,87 @@ public class Runner {
         WRITE);
   }
 
-  private void checkGlobalViolations(final List<Violation> violations) throws ScriptException {
-    final boolean tooManyViolations = violations.size() > maxViolations;
-    if (!tooManyViolations && !printViolations) {
+  private void checkGlobalViolations(final Set<Violation> violations) throws ScriptException {
+    final boolean tooManyViolations = violations.size() > this.maxViolations;
+    if (!tooManyViolations && !this.printViolations) {
       return;
     }
 
     final String report =
-        violationsReporterApi() //
-            .withViolations(violations) //
-            .withMaxLineColumnWidth(maxLineColumnWidth) //
-            .withMaxMessageColumnWidth(maxMessageColumnWidth)
-            .withMaxReporterColumnWidth(maxReporterColumnWidth) //
-            .withMaxRuleColumnWidth(maxRuleColumnWidth) //
-            .withMaxSeverityColumnWidth(maxSeverityColumnWidth) //
-            .getReport(detailLevel);
+        violationsReporterApi()
+            .withViolations(violations)
+            .withMaxLineColumnWidth(this.maxLineColumnWidth)
+            .withMaxMessageColumnWidth(this.maxMessageColumnWidth)
+            .withMaxReporterColumnWidth(this.maxReporterColumnWidth) //
+            .withMaxRuleColumnWidth(this.maxRuleColumnWidth) //
+            .withMaxSeverityColumnWidth(this.maxSeverityColumnWidth) //
+            .getReport(this.detailLevel);
 
     if (tooManyViolations) {
+      System.err.println("\nViolations in repo\n\n" + report);
       throw new ScriptException(
           "Too many violations found, max is "
-              + maxViolations
+              + this.maxViolations
               + " but found "
-              + violations.size()
-              + "\n"
-              + report);
+              + violations.size());
     } else {
-      if (printViolations) {
+      if (this.printViolations) {
         System.out.println("\nViolations in repo\n\n" + report);
       }
     }
   }
 
-  private void checkDiffViolations(final List<Violation> violations) throws ScriptException {
-    final boolean tooManyViolations = violations.size() > diffMaxViolations;
-    if (!tooManyViolations && !diffPrintViolations) {
+  private void checkDiffViolations(final Set<Violation> violations) throws ScriptException {
+    final boolean tooManyViolations = violations.size() > this.diffMaxViolations;
+    if (!tooManyViolations && !this.diffPrintViolations) {
       return;
     }
 
     final String report =
-        violationsReporterApi() //
-            .withViolations(violations) //
-            .withMaxLineColumnWidth(maxLineColumnWidth) //
-            .withMaxMessageColumnWidth(maxMessageColumnWidth)
-            .withMaxReporterColumnWidth(maxReporterColumnWidth) //
-            .withMaxRuleColumnWidth(maxRuleColumnWidth) //
-            .withMaxSeverityColumnWidth(maxSeverityColumnWidth) //
-            .getReport(diffDetailLevel);
+        violationsReporterApi()
+            .withViolations(violations)
+            .withMaxLineColumnWidth(this.maxLineColumnWidth)
+            .withMaxMessageColumnWidth(this.maxMessageColumnWidth)
+            .withMaxReporterColumnWidth(this.maxReporterColumnWidth) //
+            .withMaxRuleColumnWidth(this.maxRuleColumnWidth) //
+            .withMaxSeverityColumnWidth(this.maxSeverityColumnWidth) //
+            .getReport(this.diffDetailLevel);
 
     if (tooManyViolations) {
+      System.err.println("\nViolations in repo\n\n" + report);
       throw new ScriptException(
           "Too many violations found in diff, max is "
-              + diffMaxViolations
+              + this.maxViolations
               + " but found "
-              + violations.size()
-              + "\n"
-              + report);
+              + violations.size());
     } else {
-      if (diffPrintViolations) {
+      if (this.diffPrintViolations) {
         System.out.println("\nViolations in diff\n\n" + report);
       }
     }
   }
 
-  private List<Violation> getAllViolationsInDiff(final List<Violation> unfilteredViolations)
+  private Set<Violation> getAllViolationsInDiff(final Set<Violation> unfilteredViolations)
       throws Exception {
-    if (!isDefined(diffFrom) || !isDefined(diffTo)) {
+    if (!this.isDefined(this.diffFrom) || !this.isDefined(this.diffTo)) {
       // No references specified, will not report violations in diff
-      return new ArrayList<>();
+      return new TreeSet<>();
     } else {
-      final List<Violation> candidates = getFiltered(unfilteredViolations, diffMinSeverity);
+      final Set<Violation> candidates =
+          this.getFiltered(unfilteredViolations, this.diffMinSeverity);
       return new ViolationsGit(candidates) //
-          .getViolationsInChangeset(gitRepo, diffFrom, diffTo);
+          .getViolationsInChangeset(this.gitRepo, this.diffFrom, this.diffTo);
     }
   }
 
-  private List<Violation> getFiltered(final List<Violation> unfiltered, final SEVERITY filter) {
+  private Set<Violation> getFiltered(final Set<Violation> unfiltered, final SEVERITY filter) {
     if (filter != null) {
       return Filtering.withAtLEastSeverity(unfiltered, filter);
     }
     return unfiltered;
   }
 
-  private List<Violation> getAllParsedViolations(final List<String> configuredViolation) {
+  private Set<Violation> getAllParsedViolations(final List<String> configuredViolation) {
     final String reporter = configuredViolation.size() >= 4 ? configuredViolation.get(3) : null;
 
     Parser parser = null;
@@ -363,8 +388,9 @@ public class Runner {
               .collect(Collectors.joining("\n")),
           e);
     }
-    final List<Violation> parsedViolations =
+    final Set<Violation> parsedViolations =
         violationsApi() //
+            .withViolationsLogger(this.violationsLogger) //
             .findAll(parser) //
             .inFolder(configuredViolation.get(1)) //
             .withPattern(configuredViolation.get(2)) //
@@ -380,39 +406,39 @@ public class Runner {
   @Override
   public String toString() {
     return "Runner [violations="
-        + violations
+        + this.violations
         + ", minSeverity="
-        + minSeverity
+        + this.minSeverity
         + ", detailLevel="
-        + detailLevel
+        + this.detailLevel
         + ", maxViolations="
-        + maxViolations
+        + this.maxViolations
         + ", printViolations="
-        + printViolations
+        + this.printViolations
         + ", diffFrom="
-        + diffFrom
+        + this.diffFrom
         + ", diffTo="
-        + diffTo
+        + this.diffTo
         + ", diffMinSeverity="
-        + diffMinSeverity
+        + this.diffMinSeverity
         + ", gitRepo="
-        + gitRepo
+        + this.gitRepo
         + ", diffPrintViolations="
-        + diffPrintViolations
+        + this.diffPrintViolations
         + ", diffMaxViolations="
-        + diffMaxViolations
+        + this.diffMaxViolations
         + ", diffDetailLevel="
-        + diffDetailLevel
+        + this.diffDetailLevel
         + ", maxReporterColumnWidth="
-        + maxReporterColumnWidth
+        + this.maxReporterColumnWidth
         + ", maxRuleColumnWidth="
-        + maxRuleColumnWidth
+        + this.maxRuleColumnWidth
         + ", maxSeverityColumnWidth="
-        + maxSeverityColumnWidth
+        + this.maxSeverityColumnWidth
         + ", maxLineColumnWidth="
-        + maxLineColumnWidth
+        + this.maxLineColumnWidth
         + ", maxMessageColumnWidth="
-        + maxMessageColumnWidth
+        + this.maxMessageColumnWidth
         + "]";
   }
 }
