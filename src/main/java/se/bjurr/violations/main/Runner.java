@@ -76,7 +76,7 @@ public class Runner {
             .collect(Collectors.joining(", "));
     final Argument<List<List<String>>> violationsArg =
         stringArgument("--violations", "-v")
-            .variableArity()
+            .arity(4)
             .repeated()
             .description(
                 "The violations to look for. <PARSER> <FOLDER> <REGEXP PATTERN> <NAME> where PARSER is one of: "
