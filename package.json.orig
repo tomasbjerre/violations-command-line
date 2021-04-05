@@ -9,7 +9,7 @@
   "repository": "git@github.com:tomasbjerre/violations-command-line.git",
   "main": "index.js",
   "preferGlobal": true,
-  "version": "VERSION.0",
+  "version": "VERSION",
   "jdeploy": {"jar": "build/libs/violations-command-line-VERSION.jar"},
   "dependencies": {"shelljs": "^0.7.5"},
   "license": "Apache 2",
