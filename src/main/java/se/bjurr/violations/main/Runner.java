@@ -29,7 +29,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+
 import javax.script.ScriptException;
+
 import se.bjurr.violations.git.ViolationsGit;
 import se.bjurr.violations.git.ViolationsReporterDetailLevel;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
@@ -362,7 +364,7 @@ public class Runner {
     } else {
       final Set<Violation> candidates =
           this.getFiltered(unfilteredViolations, this.diffMinSeverity);
-      return new ViolationsGit(candidates) //
+      return new ViolationsGit(this.violationsLogger,candidates) //
           .getViolationsInChangeset(this.gitRepo, this.diffFrom, this.diffTo);
     }
   }
