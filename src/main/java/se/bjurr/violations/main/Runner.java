@@ -29,9 +29,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
-
 import javax.script.ScriptException;
-
 import se.bjurr.violations.git.ViolationsGit;
 import se.bjurr.violations.git.ViolationsReporterDetailLevel;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
@@ -72,8 +70,7 @@ public class Runner {
   public void main(final String args[]) throws Exception {
     final Argument<?> helpArgument = helpArgument("-h", "--help");
     final String parsersString =
-        Arrays.asList(Parser.values())
-            .stream()
+        Arrays.asList(Parser.values()).stream()
             .map((it) -> it.toString())
             .collect(Collectors.joining(", "));
     final Argument<List<List<String>>> violationsArg =
@@ -233,8 +230,7 @@ public class Runner {
       if (this.showDebugInfo) {
         System.out.println(
             "Given parameters:\n"
-                + Arrays.asList(args)
-                    .stream()
+                + Arrays.asList(args).stream()
                     .map((it) -> it.toString())
                     .collect(Collectors.joining(", "))
                 + "\n\nParsed parameters:\n"
@@ -364,7 +360,7 @@ public class Runner {
     } else {
       final Set<Violation> candidates =
           this.getFiltered(unfilteredViolations, this.diffMinSeverity);
-      return new ViolationsGit(this.violationsLogger,candidates) //
+      return new ViolationsGit(this.violationsLogger, candidates) //
           .getViolationsInChangeset(this.gitRepo, this.diffFrom, this.diffTo);
     }
   }
@@ -384,8 +380,7 @@ public class Runner {
       parser = Parser.valueOf(configuredViolation.get(0));
     } catch (final Exception e) {
       throw new RuntimeException(
-          Arrays.asList(Parser.values())
-              .stream()
+          Arrays.asList(Parser.values()).stream()
               .map((it) -> it.toString())
               .collect(Collectors.joining("\n")),
           e);
