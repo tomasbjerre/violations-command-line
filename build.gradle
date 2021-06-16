@@ -16,6 +16,9 @@ project.ext.buildConfig = [
       "com:com"
     ]
   ],
+  violations: [
+    updateReadme: true
+  ],
   manifest: [
     mainClass: 'se.bjurr.violations.main.Main'
   ]
