@@ -2,6 +2,18 @@
 
 Changelog of violations-command-line.
 
+## [1.17.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.17.0) (2021-07-01)
+
+
+
+### Features
+
+-  config file ([1f91d](https://github.com/tomasbjerre/violations-command-line/commit/1f91dc8360ac6a1))  [#2](https://github.com/tomasbjerre/violations-command-line/issues/2)  
+
+
+
+
+
 ## [1.16.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.16.0) (2021-06-16)
 
 
