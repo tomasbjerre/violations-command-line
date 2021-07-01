@@ -1,5 +1,6 @@
 package se.bjurr.violations.main;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.file.StandardOpenOption.WRITE;
@@ -23,6 +24,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -38,34 +41,16 @@ import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
+import se.bjurr.violations.violationslib.com.google.gson.Gson;
 import se.bjurr.violations.violationslib.com.google.gson.GsonBuilder;
 import se.softhouse.jargo.Argument;
 import se.softhouse.jargo.ArgumentException;
 import se.softhouse.jargo.ParsedArguments;
 
-/** @author bjerre */
 public class Runner {
-  private List<List<String>> violations;
-  private SEVERITY minSeverity;
-  private ViolationsReporterDetailLevel detailLevel;
-  private Integer maxViolations;
-  private boolean printViolations;
-  private String diffFrom;
-  private String diffTo;
-  private SEVERITY diffMinSeverity;
-  private File gitRepo;
-  private boolean diffPrintViolations;
-  private Integer diffMaxViolations;
-  private ViolationsReporterDetailLevel diffDetailLevel;
-  private int maxReporterColumnWidth;
-  private int maxRuleColumnWidth;
-  private int maxSeverityColumnWidth;
-  private int maxLineColumnWidth;
-  private int maxMessageColumnWidth;
-  private File codeClimateFile;
-  private File violationsFile;
-  private boolean showDebugInfo;
-  private ViolationsLogger violationsLogger;
+  private static final String SHOW_JSON_CONFIG = "-show-json-config";
+  private static final String VIOLATIONS_CONFIG = "VIOLATIONS_CONFIG";
+  private ViolationsConfig violationsConfig = new ViolationsConfig();
 
   public void main(final String args[]) throws Exception {
     final Argument<?> helpArgument = helpArgument("-h", "--help");
@@ -171,10 +156,27 @@ public class Runner {
             .description(
                 "Please run your command with this parameter and supply output when reporting bugs.")
             .build();
+    final Argument<Boolean> showJsonConfig =
+        optionArgument(SHOW_JSON_CONFIG)
+            .description("Will print the given config as JSON.")
+            .build();
+    final Argument<File> configFileArg =
+        fileArgument("-config-file", "-cf")
+            .defaultValue(new File("."))
+            .description(
+                "Will read config from given file. Can also be configured"
+                    + " with environment variable "
+                    + VIOLATIONS_CONFIG
+                    + ". Format is what you get from "
+                    + SHOW_JSON_CONFIG
+                    + ".")
+            .build();
 
     try {
       final ParsedArguments parsed =
           withArguments( //
+                  showJsonConfig, //
+                  configFileArg, //
                   showDebugInfo, //
                   maxViolationsArg, //
                   helpArgument, //
@@ -197,47 +199,68 @@ public class Runner {
                   maxMessageColumnWidth, //
                   gitRepoArg) //
               .parse(args);
-
-      this.violations = parsed.get(violationsArg);
-      this.minSeverity = parsed.get(minSeverityArg);
-      this.maxViolations = parsed.get(maxViolationsArg);
-      this.printViolations = parsed.get(printViolationsArg);
-      this.detailLevel = parsed.get(detailLevelArg);
-      this.printViolations = parsed.get(printViolationsArg);
-      this.diffFrom = parsed.get(diffFrom);
-      this.diffTo = parsed.get(diffTo);
-      this.diffMinSeverity = parsed.get(diffMinSeverity);
-      this.diffPrintViolations = parsed.get(diffPrintViolations);
-      this.diffMaxViolations = parsed.get(diffMaxViolations);
-      this.diffDetailLevel = parsed.get(diffDetailLevel);
-      this.maxReporterColumnWidth = parsed.get(maxReporterColumnWidth);
-      this.maxRuleColumnWidth = parsed.get(maxRuleColumnWidth);
-      this.maxSeverityColumnWidth = parsed.get(maxSeverityColumnWidth);
-      this.maxLineColumnWidth = parsed.get(maxLineColumnWidth);
-      this.maxMessageColumnWidth = parsed.get(maxMessageColumnWidth);
-      this.gitRepo = parsed.get(gitRepoArg);
-      if (parsed.wasGiven(codeClimateFileArg)) {
-        this.codeClimateFile = parsed.get(codeClimateFileArg);
+      final String violationsConfigPropertyValue = System.getenv(VIOLATIONS_CONFIG);
+      final boolean violationsConfigPropertyValueGiven = violationsConfigPropertyValue != null;
+      final boolean shouldUseConfigFile =
+          parsed.wasGiven(configFileArg) || violationsConfigPropertyValueGiven;
+      if (shouldUseConfigFile) {
+        Path jsonFile = null;
+        if (parsed.wasGiven(configFileArg)) {
+          jsonFile = parsed.get(configFileArg).toPath();
+        }
+        if (violationsConfigPropertyValueGiven) {
+          jsonFile = Paths.get(violationsConfigPropertyValue);
+        }
+        final String json = new String(Files.readAllBytes(jsonFile), UTF_8);
+        this.violationsConfig = new Gson().fromJson(json, ViolationsConfig.class);
       } else {
-        this.codeClimateFile = null;
-      }
-      if (parsed.wasGiven(violationsFileArg)) {
-        this.violationsFile = parsed.get(violationsFileArg);
-      } else {
-        this.violationsFile = null;
-      }
-      this.showDebugInfo = parsed.wasGiven(showDebugInfo);
-      if (this.showDebugInfo) {
-        System.out.println(
-            "Given parameters:\n"
-                + Arrays.asList(args).stream()
-                    .map((it) -> it.toString())
-                    .collect(Collectors.joining(", "))
-                + "\n\nParsed parameters:\n"
-                + this.toString());
+        this.violationsConfig.setViolations(parsed.get(violationsArg));
+        this.violationsConfig.setMinSeverity(parsed.get(minSeverityArg));
+        this.violationsConfig.setMaxViolations(parsed.get(maxViolationsArg));
+        this.violationsConfig.setPrintViolations(parsed.get(printViolationsArg));
+        this.violationsConfig.setDetailLevel(parsed.get(detailLevelArg));
+        this.violationsConfig.setPrintViolations(parsed.get(printViolationsArg));
+        this.violationsConfig.setDiffFrom(parsed.get(diffFrom));
+        this.violationsConfig.setDiffTo(parsed.get(diffTo));
+        this.violationsConfig.setDiffMinSeverity(parsed.get(diffMinSeverity));
+        this.violationsConfig.setDiffPrintViolations(parsed.get(diffPrintViolations));
+        this.violationsConfig.setDiffMaxViolations(parsed.get(diffMaxViolations));
+        this.violationsConfig.setDiffDetailLevel(parsed.get(diffDetailLevel));
+        this.violationsConfig.setMaxReporterColumnWidth(parsed.get(maxReporterColumnWidth));
+        this.violationsConfig.setMaxRuleColumnWidth(parsed.get(maxRuleColumnWidth));
+        this.violationsConfig.setMaxSeverityColumnWidth(parsed.get(maxSeverityColumnWidth));
+        this.violationsConfig.setMaxLineColumnWidth(parsed.get(maxLineColumnWidth));
+        this.violationsConfig.setMaxMessageColumnWidth(parsed.get(maxMessageColumnWidth));
+        this.violationsConfig.setGitRepo(parsed.get(gitRepoArg));
+        if (parsed.wasGiven(codeClimateFileArg)) {
+          this.violationsConfig.setCodeClimateFile(parsed.get(codeClimateFileArg));
+        } else {
+          this.violationsConfig.setCodeClimateFile(null);
+        }
+        if (parsed.wasGiven(violationsFileArg)) {
+          this.violationsConfig.setViolationsFile(parsed.get(violationsFileArg));
+        } else {
+          this.violationsConfig.setViolationsFile(null);
+        }
+        this.violationsConfig.setShowDebugInfo(parsed.wasGiven(showDebugInfo));
+        if (this.violationsConfig.isShowDebugInfo()) {
+          System.out.println(
+              "Given parameters:\n"
+                  + Arrays.asList(args).stream()
+                      .map((it) -> it.toString())
+                      .collect(Collectors.joining(", "))
+                  + "\n\nParsed parameters:\n"
+                  + this.toString());
+        }
       }
 
-      this.violationsLogger =
+      if (parsed.wasGiven(showJsonConfig)) {
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        final String jsonString = gson.toJson(this.violationsConfig);
+        System.out.println(jsonString);
+        return;
+      }
+      this.violationsConfig.setViolationsLogger(
           new ViolationsLogger() {
             @Override
             public void log(final Level level, final String string) {
@@ -250,9 +273,10 @@ public class Runner {
               t.printStackTrace(new PrintWriter(sw));
               System.out.println(level + " " + string + "\n" + sw.toString());
             }
-          };
-      if (!this.showDebugInfo) {
-        this.violationsLogger = FilteringViolationsLogger.filterLevel(this.violationsLogger);
+          });
+      if (!this.violationsConfig.isShowDebugInfo()) {
+        this.violationsConfig.setViolationsLogger(
+            FilteringViolationsLogger.filterLevel(this.violationsConfig.getViolationsLogger()));
       }
       this.performTask();
     } catch (final ArgumentException exception) {
@@ -264,19 +288,21 @@ public class Runner {
   public void performTask() throws Exception {
     final Set<Violation> allParsedViolations = new TreeSet<>();
     final Set<Violation> allParsedViolationsInDiff = new TreeSet<>();
-    for (final List<String> configuredViolation : this.violations) {
+    for (final List<String> configuredViolation : this.violationsConfig.getViolations()) {
       final Set<Violation> parsedViolations = this.getAllParsedViolations(configuredViolation);
 
-      allParsedViolations.addAll(this.getFiltered(parsedViolations, this.minSeverity));
+      allParsedViolations.addAll(
+          this.getFiltered(parsedViolations, this.violationsConfig.getMinSeverity()));
 
       allParsedViolationsInDiff.addAll(this.getAllViolationsInDiff(parsedViolations));
     }
 
-    if (this.codeClimateFile != null) {
-      this.createJsonFile(fromViolations(allParsedViolations), this.codeClimateFile);
+    if (this.violationsConfig.getCodeClimateFile() != null) {
+      this.createJsonFile(
+          fromViolations(allParsedViolations), this.violationsConfig.getCodeClimateFile());
     }
-    if (this.violationsFile != null) {
-      this.createJsonFile(allParsedViolations, this.violationsFile);
+    if (this.violationsConfig.getViolationsFile() != null) {
+      this.createJsonFile(allParsedViolations, this.violationsConfig.getViolationsFile());
     }
     this.checkGlobalViolations(allParsedViolations);
     this.checkDiffViolations(allParsedViolationsInDiff);
@@ -293,60 +319,61 @@ public class Runner {
   }
 
   private void checkGlobalViolations(final Set<Violation> violations) throws ScriptException {
-    final boolean tooManyViolations = violations.size() > this.maxViolations;
-    if (!tooManyViolations && !this.printViolations) {
+    final boolean tooManyViolations = violations.size() > this.violationsConfig.getMaxViolations();
+    if (!tooManyViolations && !this.violationsConfig.isPrintViolations()) {
       return;
     }
 
     final String report =
         violationsReporterApi()
             .withViolations(violations)
-            .withMaxLineColumnWidth(this.maxLineColumnWidth)
-            .withMaxMessageColumnWidth(this.maxMessageColumnWidth)
-            .withMaxReporterColumnWidth(this.maxReporterColumnWidth) //
-            .withMaxRuleColumnWidth(this.maxRuleColumnWidth) //
-            .withMaxSeverityColumnWidth(this.maxSeverityColumnWidth) //
-            .getReport(this.detailLevel);
+            .withMaxLineColumnWidth(this.violationsConfig.getMaxLineColumnWidth())
+            .withMaxMessageColumnWidth(this.violationsConfig.getMaxMessageColumnWidth())
+            .withMaxReporterColumnWidth(this.violationsConfig.getMaxReporterColumnWidth()) //
+            .withMaxRuleColumnWidth(this.violationsConfig.getMaxRuleColumnWidth()) //
+            .withMaxSeverityColumnWidth(this.violationsConfig.getMaxSeverityColumnWidth()) //
+            .getReport(this.violationsConfig.getDetailLevel());
 
     if (tooManyViolations) {
       System.err.println("\nViolations in repo\n\n" + report);
       throw new ScriptException(
           "Too many violations found, max is "
-              + this.maxViolations
+              + this.violationsConfig.getMaxViolations()
               + " but found "
               + violations.size());
     } else {
-      if (this.printViolations) {
+      if (this.violationsConfig.isPrintViolations()) {
         System.out.println("\nViolations in repo\n\n" + report);
       }
     }
   }
 
   private void checkDiffViolations(final Set<Violation> violations) throws ScriptException {
-    final boolean tooManyViolations = violations.size() > this.diffMaxViolations;
-    if (!tooManyViolations && !this.diffPrintViolations) {
+    final boolean tooManyViolations =
+        violations.size() > this.violationsConfig.getDiffMaxViolations();
+    if (!tooManyViolations && !this.violationsConfig.isDiffPrintViolations()) {
       return;
     }
 
     final String report =
         violationsReporterApi()
             .withViolations(violations)
-            .withMaxLineColumnWidth(this.maxLineColumnWidth)
-            .withMaxMessageColumnWidth(this.maxMessageColumnWidth)
-            .withMaxReporterColumnWidth(this.maxReporterColumnWidth) //
-            .withMaxRuleColumnWidth(this.maxRuleColumnWidth) //
-            .withMaxSeverityColumnWidth(this.maxSeverityColumnWidth) //
-            .getReport(this.diffDetailLevel);
+            .withMaxLineColumnWidth(this.violationsConfig.getMaxLineColumnWidth())
+            .withMaxMessageColumnWidth(this.violationsConfig.getMaxMessageColumnWidth())
+            .withMaxReporterColumnWidth(this.violationsConfig.getMaxReporterColumnWidth()) //
+            .withMaxRuleColumnWidth(this.violationsConfig.getMaxRuleColumnWidth()) //
+            .withMaxSeverityColumnWidth(this.violationsConfig.getMaxSeverityColumnWidth()) //
+            .getReport(this.violationsConfig.getDiffDetailLevel());
 
     if (tooManyViolations) {
       System.err.println("\nViolations in repo\n\n" + report);
       throw new ScriptException(
           "Too many violations found in diff, max is "
-              + this.maxViolations
+              + this.violationsConfig.getMaxViolations()
               + " but found "
               + violations.size());
     } else {
-      if (this.diffPrintViolations) {
+      if (this.violationsConfig.isDiffPrintViolations()) {
         System.out.println("\nViolations in diff\n\n" + report);
       }
     }
@@ -354,14 +381,18 @@ public class Runner {
 
   private Set<Violation> getAllViolationsInDiff(final Set<Violation> unfilteredViolations)
       throws Exception {
-    if (!this.isDefined(this.diffFrom) || !this.isDefined(this.diffTo)) {
+    if (!this.isDefined(this.violationsConfig.getDiffFrom())
+        || !this.isDefined(this.violationsConfig.getDiffTo())) {
       // No references specified, will not report violations in diff
       return new TreeSet<>();
     } else {
       final Set<Violation> candidates =
-          this.getFiltered(unfilteredViolations, this.diffMinSeverity);
-      return new ViolationsGit(this.violationsLogger, candidates) //
-          .getViolationsInChangeset(this.gitRepo, this.diffFrom, this.diffTo);
+          this.getFiltered(unfilteredViolations, this.violationsConfig.getDiffMinSeverity());
+      return new ViolationsGit(this.violationsConfig.getViolationsLogger(), candidates) //
+          .getViolationsInChangeset(
+              this.violationsConfig.getGitRepo(),
+              this.violationsConfig.getDiffFrom(),
+              this.violationsConfig.getDiffTo());
     }
   }
 
@@ -387,7 +418,7 @@ public class Runner {
     }
     final Set<Violation> parsedViolations =
         violationsApi() //
-            .withViolationsLogger(this.violationsLogger) //
+            .withViolationsLogger(this.violationsConfig.getViolationsLogger()) //
             .findAll(parser) //
             .inFolder(configuredViolation.get(1)) //
             .withPattern(configuredViolation.get(2)) //
@@ -403,39 +434,39 @@ public class Runner {
   @Override
   public String toString() {
     return "Runner [violations="
-        + this.violations
+        + this.violationsConfig.getViolations()
         + ", minSeverity="
-        + this.minSeverity
+        + this.violationsConfig.getMinSeverity()
         + ", detailLevel="
-        + this.detailLevel
+        + this.violationsConfig.getDetailLevel()
         + ", maxViolations="
-        + this.maxViolations
+        + this.violationsConfig.getMaxViolations()
         + ", printViolations="
-        + this.printViolations
+        + this.violationsConfig.isPrintViolations()
         + ", diffFrom="
-        + this.diffFrom
+        + this.violationsConfig.getDiffFrom()
         + ", diffTo="
-        + this.diffTo
+        + this.violationsConfig.getDiffTo()
         + ", diffMinSeverity="
-        + this.diffMinSeverity
+        + this.violationsConfig.getDiffMinSeverity()
         + ", gitRepo="
-        + this.gitRepo
+        + this.violationsConfig.getGitRepo()
         + ", diffPrintViolations="
-        + this.diffPrintViolations
+        + this.violationsConfig.isDiffPrintViolations()
         + ", diffMaxViolations="
-        + this.diffMaxViolations
+        + this.violationsConfig.getDiffMaxViolations()
         + ", diffDetailLevel="
-        + this.diffDetailLevel
+        + this.violationsConfig.getDiffDetailLevel()
         + ", maxReporterColumnWidth="
-        + this.maxReporterColumnWidth
+        + this.violationsConfig.getMaxReporterColumnWidth()
         + ", maxRuleColumnWidth="
-        + this.maxRuleColumnWidth
+        + this.violationsConfig.getMaxRuleColumnWidth()
         + ", maxSeverityColumnWidth="
-        + this.maxSeverityColumnWidth
+        + this.violationsConfig.getMaxSeverityColumnWidth()
         + ", maxLineColumnWidth="
-        + this.maxLineColumnWidth
+        + this.violationsConfig.getMaxLineColumnWidth()
         + ", maxMessageColumnWidth="
-        + this.maxMessageColumnWidth
+        + this.violationsConfig.getMaxMessageColumnWidth()
         + "]";
   }
 }

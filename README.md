@@ -165,7 +165,15 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         file with all the 
                                                         violations.
                                                         <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/build/libs/.
+                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
+-config-file, -cf <path>                                Will read config from 
+                                                        given file. Can also be 
+                                                        configured with environment 
+                                                        variable VIOLATIONS_CONFIG. 
+                                                        Format is what you get from -
+                                                        show-json-config.
+                                                        <path>: a file path
+                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
 -detail-level, -dl <ViolationsReporterDetailLevel>      Verbosity
                                                         <ViolationsReporterDetailLevel>: {VERBOSE | COMPACT | PER_FILE_COMPACT}
                                                         Default: VERBOSE
@@ -194,7 +202,7 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         Default: 
 -git-repo, -gr <path>                                   Where to look for Git.
                                                         <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/build/libs/.
+                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
 -h, --help <argument-to-print-help-for>                 <argument-to-print-help-for>: an argument to print help for
                                                         Default: If no specific parameter is given the whole usage text is given
 -max-line-column-width, -mlcw <integer>                 0 means no limit
@@ -230,32 +238,37 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         and supply output when 
                                                         reporting bugs.
                                                         Default: disabled
+-show-json-config                                       Will print the given 
+                                                        config as JSON.
+                                                        Default: disabled
 --violations, -v <string>                               The violations to look 
                                                         for. <PARSER> <FOLDER> 
                                                         <REGEXP PATTERN> <NAME> where 
                                                         PARSER is one of: 
                                                         ANDROIDLINT, CHECKSTYLE, CODENARC, 
                                                         CLANG, CPD, CPPCHECK, 
-                                                        CPPLINT, CSSLINT, FINDBUGS, 
-                                                        FLAKE8, FXCOP, GENDARME, IAR, 
-                                                        JCREPORT, JSLINT, JUNIT, LINT, 
-                                                        KLOCWORK, KOTLINMAVEN, 
-                                                        KOTLINGRADLE, MSCPP, MYPY, GOLINT, 
+                                                        CPPLINT, CSSLINT, GENERIC, 
+                                                        FINDBUGS, FLAKE8, FXCOP, 
+                                                        GENDARME, IAR, JCREPORT, JSLINT, 
+                                                        JUNIT, LINT, KLOCWORK, 
+                                                        KOTLINMAVEN, KOTLINGRADLE, MSCPP, 
+                                                        MSBULDLOG, MYPY, GOLINT, 
                                                         GOOGLEERRORPRONE, PERLCRITIC, PITEST, 
-                                                        PMD, PYDOCSTYLE, PYLINT, 
-                                                        RESHARPER, SBTSCALAC, SIMIAN, 
-                                                        SONAR, STYLECOP, XMLLINT, 
-                                                        YAMLLINT, ZPTLINT, DOCFX, 
-                                                        PCLINT, CODECLIMATE
-                                                         Example: -
-                                                        v "JSHINT" "." ".
-                                                        */jshint.xml$" "JSHint" [Supports Multiple occurrences]
+                                                        PMD, PROTOLINT, PYDOCSTYLE, 
+                                                        PYLINT, RESHARPER, SBTSCALAC, 
+                                                        SIMIAN, SONAR, STYLECOP, 
+                                                        XMLLINT, YAMLLINT, ZPTLINT, 
+                                                        DOCFX, PCLINT, CODECLIMATE, 
+                                                        XUNIT
+                                                         Example: -v "JSHINT" 
+                                                        "." ".*/jshint.xml$" 
+                                                        "JSHint" [Supports Multiple occurrences]
                                                         <string>: any string
                                                         Default: Empty list
 -violations-file, -vf <path>                            Create a JSON file 
                                                         with all the violations.
                                                         <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/build/libs/.
+                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
 ```
 
 Checkout the [Violations Lib](https://github.com/tomasbjerre/violations-lib) for more documentation.
