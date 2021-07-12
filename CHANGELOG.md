@@ -2,6 +2,18 @@
 
 Changelog of violations-command-line.
 
+## [1.18.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.18.0) (2021-07-12)
+
+
+
+### Features
+
+-  adding configurable Jacoco parser ([10019](https://github.com/tomasbjerre/violations-command-line/commit/10019b527ec5ac8))  
+
+
+
+
+
 ## [1.17.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.17.0) (2021-07-01)
 
 
