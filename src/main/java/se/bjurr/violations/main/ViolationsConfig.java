@@ -28,174 +28,192 @@ public class ViolationsConfig {
   private File violationsFile;
   private boolean showDebugInfo;
   private ViolationsLogger violationsLogger;
+  private int jacocoMinLineCount;
+  private double jacocoMinCoverage;
 
   public ViolationsConfig() {}
 
   public List<List<String>> getViolations() {
-    return violations;
+    return this.violations;
   }
 
-  public void setViolations(List<List<String>> violations) {
+  public void setViolations(final List<List<String>> violations) {
     this.violations = violations;
   }
 
   public SEVERITY getMinSeverity() {
-    return minSeverity;
+    return this.minSeverity;
   }
 
-  public void setMinSeverity(SEVERITY minSeverity) {
+  public void setMinSeverity(final SEVERITY minSeverity) {
     this.minSeverity = minSeverity;
   }
 
   public ViolationsReporterDetailLevel getDetailLevel() {
-    return detailLevel;
+    return this.detailLevel;
   }
 
-  public void setDetailLevel(ViolationsReporterDetailLevel detailLevel) {
+  public void setDetailLevel(final ViolationsReporterDetailLevel detailLevel) {
     this.detailLevel = detailLevel;
   }
 
   public Integer getMaxViolations() {
-    return maxViolations;
+    return this.maxViolations;
   }
 
-  public void setMaxViolations(Integer maxViolations) {
+  public void setMaxViolations(final Integer maxViolations) {
     this.maxViolations = maxViolations;
   }
 
   public boolean isPrintViolations() {
-    return printViolations;
+    return this.printViolations;
   }
 
-  public void setPrintViolations(boolean printViolations) {
+  public void setPrintViolations(final boolean printViolations) {
     this.printViolations = printViolations;
   }
 
   public String getDiffFrom() {
-    return diffFrom;
+    return this.diffFrom;
   }
 
-  public void setDiffFrom(String diffFrom) {
+  public void setDiffFrom(final String diffFrom) {
     this.diffFrom = diffFrom;
   }
 
   public String getDiffTo() {
-    return diffTo;
+    return this.diffTo;
   }
 
-  public void setDiffTo(String diffTo) {
+  public void setDiffTo(final String diffTo) {
     this.diffTo = diffTo;
   }
 
   public SEVERITY getDiffMinSeverity() {
-    return diffMinSeverity;
+    return this.diffMinSeverity;
   }
 
-  public void setDiffMinSeverity(SEVERITY diffMinSeverity) {
+  public void setDiffMinSeverity(final SEVERITY diffMinSeverity) {
     this.diffMinSeverity = diffMinSeverity;
   }
 
   public File getGitRepo() {
-    return gitRepo;
+    return this.gitRepo;
   }
 
-  public void setGitRepo(File gitRepo) {
+  public void setGitRepo(final File gitRepo) {
     this.gitRepo = gitRepo;
   }
 
   public boolean isDiffPrintViolations() {
-    return diffPrintViolations;
+    return this.diffPrintViolations;
   }
 
-  public void setDiffPrintViolations(boolean diffPrintViolations) {
+  public void setDiffPrintViolations(final boolean diffPrintViolations) {
     this.diffPrintViolations = diffPrintViolations;
   }
 
   public Integer getDiffMaxViolations() {
-    return diffMaxViolations;
+    return this.diffMaxViolations;
   }
 
-  public void setDiffMaxViolations(Integer diffMaxViolations) {
+  public void setDiffMaxViolations(final Integer diffMaxViolations) {
     this.diffMaxViolations = diffMaxViolations;
   }
 
   public ViolationsReporterDetailLevel getDiffDetailLevel() {
-    return diffDetailLevel;
+    return this.diffDetailLevel;
   }
 
-  public void setDiffDetailLevel(ViolationsReporterDetailLevel diffDetailLevel) {
+  public void setDiffDetailLevel(final ViolationsReporterDetailLevel diffDetailLevel) {
     this.diffDetailLevel = diffDetailLevel;
   }
 
   public int getMaxReporterColumnWidth() {
-    return maxReporterColumnWidth;
+    return this.maxReporterColumnWidth;
   }
 
-  public void setMaxReporterColumnWidth(int maxReporterColumnWidth) {
+  public void setMaxReporterColumnWidth(final int maxReporterColumnWidth) {
     this.maxReporterColumnWidth = maxReporterColumnWidth;
   }
 
   public int getMaxRuleColumnWidth() {
-    return maxRuleColumnWidth;
+    return this.maxRuleColumnWidth;
   }
 
-  public void setMaxRuleColumnWidth(int maxRuleColumnWidth) {
+  public void setMaxRuleColumnWidth(final int maxRuleColumnWidth) {
     this.maxRuleColumnWidth = maxRuleColumnWidth;
   }
 
   public int getMaxSeverityColumnWidth() {
-    return maxSeverityColumnWidth;
+    return this.maxSeverityColumnWidth;
   }
 
-  public void setMaxSeverityColumnWidth(int maxSeverityColumnWidth) {
+  public void setMaxSeverityColumnWidth(final int maxSeverityColumnWidth) {
     this.maxSeverityColumnWidth = maxSeverityColumnWidth;
   }
 
   public int getMaxLineColumnWidth() {
-    return maxLineColumnWidth;
+    return this.maxLineColumnWidth;
   }
 
-  public void setMaxLineColumnWidth(int maxLineColumnWidth) {
+  public void setMaxLineColumnWidth(final int maxLineColumnWidth) {
     this.maxLineColumnWidth = maxLineColumnWidth;
   }
 
   public int getMaxMessageColumnWidth() {
-    return maxMessageColumnWidth;
+    return this.maxMessageColumnWidth;
   }
 
-  public void setMaxMessageColumnWidth(int maxMessageColumnWidth) {
+  public void setMaxMessageColumnWidth(final int maxMessageColumnWidth) {
     this.maxMessageColumnWidth = maxMessageColumnWidth;
   }
 
   public File getCodeClimateFile() {
-    return codeClimateFile;
+    return this.codeClimateFile;
   }
 
-  public void setCodeClimateFile(File codeClimateFile) {
+  public void setCodeClimateFile(final File codeClimateFile) {
     this.codeClimateFile = codeClimateFile;
   }
 
   public File getViolationsFile() {
-    return violationsFile;
+    return this.violationsFile;
   }
 
-  public void setViolationsFile(File violationsFile) {
+  public void setViolationsFile(final File violationsFile) {
     this.violationsFile = violationsFile;
   }
 
   public boolean isShowDebugInfo() {
-    return showDebugInfo;
+    return this.showDebugInfo;
   }
 
-  public void setShowDebugInfo(boolean showDebugInfo) {
+  public void setShowDebugInfo(final boolean showDebugInfo) {
     this.showDebugInfo = showDebugInfo;
   }
 
   public ViolationsLogger getViolationsLogger() {
-    return violationsLogger;
+    return this.violationsLogger;
   }
 
-  public void setViolationsLogger(ViolationsLogger violationsLogger) {
+  public void setViolationsLogger(final ViolationsLogger violationsLogger) {
     this.violationsLogger = violationsLogger;
+  }
+
+  public double getJacocoMinCoverage() {
+    return this.jacocoMinCoverage;
+  }
+
+  public void setJacocoMinCoverage(final double jacocoMinCoverage) {
+    this.jacocoMinCoverage = jacocoMinCoverage;
+  }
+
+  public int getJacocoMinLineCount() {
+    return this.jacocoMinLineCount;
+  }
+
+  public void setJacocoMinLineCount(final int jacocoMinLineCount) {
+    this.jacocoMinLineCount = jacocoMinLineCount;
   }
 }

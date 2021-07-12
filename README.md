@@ -116,6 +116,7 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 | [_HadoLint_](https://github.com/hadolint/hadolint/)                                   | `CHECKSTYLE`         | With `-f checkstyle`
 | [_IAR_](https://www.iar.com/iar-embedded-workbench/)                                  | `IAR`                | With `--no_wrap_diagnostics`
 | [_Infer_](http://fbinfer.com/)                                                        | `PMD`                | Facebook Infer. With `--pmd-xml`.
+| [_JACOCO_](https://www.jacoco.org/)                                                   | `JACOCO`             | 
 | [_JCReport_](https://github.com/jCoderZ/fawkez/wiki/JcReport)                         | `JCREPORT`           | 
 | [_JSHint_](http://jshint.com/)                                                        | `JSLINT`             | With `--reporter=jslint` or the CHECKSTYLE parser with `--reporter=checkstyle`
 | [_JUnit_](https://junit.org/junit4/)                                                  | `JUNIT`              | It only contains the failures.
@@ -205,6 +206,16 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         Default: /home/bjerre/workspace/violations/violations-command-line/.
 -h, --help <argument-to-print-help-for>                 <argument-to-print-help-for>: an argument to print help for
                                                         Default: If no specific parameter is given the whole usage text is given
+-jacoco-min-coverage, -jmc <big-decimal>                Minimum coverage in 
+                                                        Jacoco that will generate a 
+                                                        violation.
+                                                        <big-decimal>: an arbitrary decimal number (practically no limits)
+                                                        Default: 0.7
+-jacoco-min-line-count, -jmlc <integer>                 Minimum line count in 
+                                                        Jacoco that will generate a 
+                                                        violation.
+                                                        <integer>: -2,147,483,648 to 2,147,483,647
+                                                        Default: 4
 -max-line-column-width, -mlcw <integer>                 0 means no limit
                                                         <integer>: -2,147,483,648 to 2,147,483,647
                                                         Default: 0
@@ -249,8 +260,8 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         CLANG, CPD, CPPCHECK, 
                                                         CPPLINT, CSSLINT, GENERIC, 
                                                         FINDBUGS, FLAKE8, FXCOP, 
-                                                        GENDARME, IAR, JCREPORT, JSLINT, 
-                                                        JUNIT, LINT, KLOCWORK, 
+                                                        GENDARME, IAR, JACOCO, JCREPORT, 
+                                                        JSLINT, JUNIT, LINT, KLOCWORK, 
                                                         KOTLINMAVEN, KOTLINGRADLE, MSCPP, 
                                                         MSBULDLOG, MYPY, GOLINT, 
                                                         GOOGLEERRORPRONE, PERLCRITIC, PITEST, 

@@ -9,6 +9,7 @@ import static se.bjurr.violations.git.ViolationsReporterDetailLevel.VERBOSE;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.model.SEVERITY.INFO;
 import static se.bjurr.violations.lib.model.codeclimate.CodeClimateTransformer.fromViolations;
+import static se.softhouse.jargo.Arguments.bigDecimalArgument;
 import static se.softhouse.jargo.Arguments.booleanArgument;
 import static se.softhouse.jargo.Arguments.enumArgument;
 import static se.softhouse.jargo.Arguments.fileArgument;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +41,9 @@ import se.bjurr.violations.lib.FilteringViolationsLogger;
 import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
+import se.bjurr.violations.lib.parsers.JacocoParser;
+import se.bjurr.violations.lib.parsers.JacocoParserSettings;
+import se.bjurr.violations.lib.parsers.ViolationsParser;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
 import se.bjurr.violations.violationslib.com.google.gson.Gson;
@@ -171,6 +176,17 @@ public class Runner {
                     + SHOW_JSON_CONFIG
                     + ".")
             .build();
+    final Argument<Integer> jacocoMinLineCount =
+        integerArgument("-jacoco-min-line-count", "-jmlc")
+            .description("Minimum line count in Jacoco that will generate a violation.")
+            .defaultValue(JacocoParserSettings.DEFAULT_MIN_LINE_COUNT)
+            .build();
+
+    final Argument<BigDecimal> jacocoMinCoverage =
+        bigDecimalArgument("-jacoco-min-coverage", "-jmc")
+            .description("Minimum coverage in Jacoco that will generate a violation.")
+            .defaultValue(BigDecimal.valueOf(JacocoParserSettings.DEFAULT_MIN_COVERAGE))
+            .build();
 
     try {
       final ParsedArguments parsed =
@@ -197,7 +213,9 @@ public class Runner {
                   maxSeverityColumnWidth, //
                   maxLineColumnWidth, //
                   maxMessageColumnWidth, //
-                  gitRepoArg) //
+                  gitRepoArg, //
+                  jacocoMinLineCount, //
+                  jacocoMinCoverage) //
               .parse(args);
       final String violationsConfigPropertyValue = System.getenv(VIOLATIONS_CONFIG);
       final boolean violationsConfigPropertyValueGiven = violationsConfigPropertyValue != null;
@@ -232,6 +250,8 @@ public class Runner {
         this.violationsConfig.setMaxLineColumnWidth(parsed.get(maxLineColumnWidth));
         this.violationsConfig.setMaxMessageColumnWidth(parsed.get(maxMessageColumnWidth));
         this.violationsConfig.setGitRepo(parsed.get(gitRepoArg));
+        this.violationsConfig.setJacocoMinCoverage(parsed.get(jacocoMinCoverage).doubleValue());
+        this.violationsConfig.setJacocoMinLineCount(parsed.get(jacocoMinLineCount));
         if (parsed.wasGiven(codeClimateFileArg)) {
           this.violationsConfig.setCodeClimateFile(parsed.get(codeClimateFileArg));
         } else {
@@ -406,9 +426,17 @@ public class Runner {
   private Set<Violation> getAllParsedViolations(final List<String> configuredViolation) {
     final String reporter = configuredViolation.size() >= 4 ? configuredViolation.get(3) : null;
 
-    Parser parser = null;
+    ViolationsParser parser = null;
     try {
-      parser = Parser.valueOf(configuredViolation.get(0));
+      final String parserName = configuredViolation.get(0);
+      if (parserName.equals(Parser.JACOCO.name())) {
+        final int minLineCount = this.violationsConfig.getJacocoMinLineCount();
+        final double minCoverage = this.violationsConfig.getJacocoMinCoverage();
+        final JacocoParserSettings settings = new JacocoParserSettings(minLineCount, minCoverage);
+        parser = new JacocoParser(settings);
+      } else {
+        parser = Parser.valueOf(parserName).getViolationsParser();
+      }
     } catch (final Exception e) {
       throw new RuntimeException(
           Arrays.asList(Parser.values()).stream()
@@ -419,7 +447,7 @@ public class Runner {
     final Set<Violation> parsedViolations =
         violationsApi() //
             .withViolationsLogger(this.violationsConfig.getViolationsLogger()) //
-            .findAll(parser) //
+            .withViolationsParser(parser) //
             .inFolder(configuredViolation.get(1)) //
             .withPattern(configuredViolation.get(2)) //
             .withReporter(reporter) //
