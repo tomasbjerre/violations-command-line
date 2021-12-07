@@ -25,6 +25,7 @@ public class ViolationsConfig {
   private int maxLineColumnWidth;
   private int maxMessageColumnWidth;
   private File codeClimateFile;
+  private File sarifFile;
   private File violationsFile;
   private boolean showDebugInfo;
   private ViolationsLogger violationsLogger;
@@ -175,6 +176,14 @@ public class ViolationsConfig {
 
   public void setCodeClimateFile(final File codeClimateFile) {
     this.codeClimateFile = codeClimateFile;
+  }
+
+  public void setSarifFile(final File file) {
+    this.sarifFile = file;
+  }
+
+  public File getSarifFile() {
+    return this.sarifFile;
   }
 
   public File getViolationsFile() {

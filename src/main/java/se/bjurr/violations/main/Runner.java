@@ -81,6 +81,10 @@ public class Runner {
         fileArgument("-code-climate", "-cc")
             .description("Create a CodeClimate file with all the violations.")
             .build();
+    final Argument<File> sarifFileArg =
+        fileArgument("-sarif", "-ss")
+            .description("Create a Sarif file with all the violations.")
+            .build();
     final Argument<File> violationsFileArg =
         fileArgument("-violations-file", "-vf")
             .description("Create a JSON file with all the violations.")
@@ -199,6 +203,7 @@ public class Runner {
                   violationsArg, //
                   minSeverityArg, //
                   codeClimateFileArg, //
+                  sarifFileArg, //
                   violationsFileArg, //
                   detailLevelArg, //
                   printViolationsArg, //
@@ -256,6 +261,11 @@ public class Runner {
           this.violationsConfig.setCodeClimateFile(parsed.get(codeClimateFileArg));
         } else {
           this.violationsConfig.setCodeClimateFile(null);
+        }
+        if (parsed.wasGiven(sarifFileArg)) {
+          this.violationsConfig.setSarifFile(parsed.get(sarifFileArg));
+        } else {
+          this.violationsConfig.setSarifFile(null);
         }
         if (parsed.wasGiven(violationsFileArg)) {
           this.violationsConfig.setViolationsFile(parsed.get(violationsFileArg));
@@ -320,6 +330,10 @@ public class Runner {
     if (this.violationsConfig.getCodeClimateFile() != null) {
       this.createJsonFile(
           fromViolations(allParsedViolations), this.violationsConfig.getCodeClimateFile());
+    }
+    if (this.violationsConfig.getSarifFile() != null) {
+      this.createJsonFile(
+          fromViolations(allParsedViolations), this.violationsConfig.getSarifFile());
     }
     if (this.violationsConfig.getViolationsFile() != null) {
       this.createJsonFile(allParsedViolations, this.violationsConfig.getViolationsFile());

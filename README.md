@@ -29,6 +29,11 @@ npx violations-command-line -vf violations-report.json \
 npx violations-command-line -cc code-climate-report.json \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle"
 ```
+ * Export to Sarif JSON.
+```bash
+npx violations-command-line -sa sarif-report.json \
+ -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle"
+```
  * Optionally fail the build depending on violations found.
 
 A snippet of the output may look like this:
@@ -145,6 +150,7 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 | [_PyLint_](https://www.pylint.org/)                                                   | `PYLINT`             | With `pylint --output-format=parseable`.
 | [_ReSharper_](https://www.jetbrains.com/resharper/)                                   | `RESHARPER`          | 
 | [_RubyCop_](http://rubocop.readthedocs.io/en/latest/formatters/)                      | `CLANG`              | With `rubycop -f clang file.rb`
+| [_SARIF_](https://github.com/oasis-tcs/sarif-spec)                                    | `SARIFPARSER`        | 
 | [_SbtScalac_](http://www.scala-sbt.org/)                                              | `SBTSCALAC`          | 
 | [_Scalastyle_](http://www.scalastyle.org/)                                            | `CHECKSTYLE`         | 
 | [_Simian_](http://www.harukizaemon.com/simian/)                                       | `SIMIAN`             | 
@@ -153,10 +159,13 @@ A number of **parsers** have been implemented. Some **parsers** can parse output
 | [_StyleCop_](https://stylecop.codeplex.com/)                                          | `STYLECOP`           | 
 | [_SwiftLint_](https://github.com/realm/SwiftLint)                                     | `CHECKSTYLE`         | With `--reporter checkstyle`.
 | [_TSLint_](https://palantir.github.io/tslint/usage/cli/)                              | `CHECKSTYLE`         | With `-t checkstyle`
+| [_Valgrind_](https://valgrind.org/)                                                   | `VALGRIND`           | With `--xml=yes`.
 | [_XMLLint_](http://xmlsoft.org/xmllint.html)                                          | `XMLLINT`            | 
 | [_XUnit_](https://xunit.net/)                                                         | `XUNIT`              | It only contains the failures.
 | [_YAMLLint_](https://yamllint.readthedocs.io/en/stable/index.html)                    | `YAMLLINT`           | With `-f parsable`
 | [_ZPTLint_](https://pypi.python.org/pypi/zptlint)                                     | `ZPTLINT`            |
+
+47 parsers and 73 reporters.
 
 Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations-lib/issues)!
 
@@ -241,6 +250,10 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         found
                                                         <boolean>: true or false
                                                         Default: true
+-sarif, -ss <path>                                      Create a Sarif file 
+                                                        with all the violations.
+                                                        <path>: a file path
+                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
 -severity, -s <SEVERITY>                                Minimum severity level 
                                                         to report.
                                                         <SEVERITY>: {INFO | WARN | ERROR}
@@ -267,11 +280,12 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         MSBULDLOG, MYPY, GOLINT, 
                                                         GOOGLEERRORPRONE, PERLCRITIC, PITEST, 
                                                         PMD, PROTOLINT, PYDOCSTYLE, 
-                                                        PYLINT, RESHARPER, SBTSCALAC, 
-                                                        SIMIAN, SONAR, STYLECOP, 
-                                                        XMLLINT, YAMLLINT, ZPTLINT, 
-                                                        DOCFX, PCLINT, CODECLIMATE, 
-                                                        XUNIT
+                                                        PYLINT, RESHARPER, 
+                                                        SARIFPARSER, SBTSCALAC, SIMIAN, 
+                                                        SONAR, STYLECOP, XMLLINT, 
+                                                        YAMLLINT, ZPTLINT, DOCFX, 
+                                                        PCLINT, CODECLIMATE, XUNIT, 
+                                                        VALGRIND
                                                          Example: -v "JSHINT" 
                                                         "." ".*/jshint.xml$" 
                                                         "JSHint" [Supports Multiple occurrences]
