@@ -1,6 +1,5 @@
 # Violations Command Line
 
-[![Build Status](https://travis-ci.org/tomasbjerre/violations-command-line.svg?branch=master)](https://travis-ci.org/tomasbjerre/violations-command-line)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.bjurr.violations/violations-command-line/badge.svg)](https://maven-badges.herokuapp.com/maven-central/se.bjurr.violations/violations-command-line)
 [![NPM](https://img.shields.io/npm/v/violations-command-line.svg?style=flat-square) ](https://www.npmjs.com/package/violations-command-line)
 

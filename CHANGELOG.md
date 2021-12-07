@@ -2,6 +2,18 @@
 
 Changelog of violations-command-line.
 
+## [1.20.5](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.20.5) (2021-12-07)
+
+
+
+
+
+### Bug Fixes
+
+-  SARIF ([72c05](https://github.com/tomasbjerre/violations-command-line/commit/72c05c08d44d359))  
+
+
+
 ## [1.20.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.20.0) (2021-12-07)
 
 
