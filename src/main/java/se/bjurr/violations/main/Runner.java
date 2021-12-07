@@ -33,9 +33,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
-
 import javax.script.ScriptException;
-
 import se.bjurr.violations.git.ViolationsGit;
 import se.bjurr.violations.git.ViolationsReporterDetailLevel;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
@@ -332,11 +330,13 @@ public class Runner {
 
     if (this.violationsConfig.getCodeClimateFile() != null) {
       this.createJsonFile(
-    		  CodeClimateTransformer.fromViolations(allParsedViolations), this.violationsConfig.getCodeClimateFile());
+          CodeClimateTransformer.fromViolations(allParsedViolations),
+          this.violationsConfig.getCodeClimateFile());
     }
     if (this.violationsConfig.getSarifFile() != null) {
       this.createJsonFile(
-          SarifTransformer.fromViolations(allParsedViolations), this.violationsConfig.getSarifFile());
+          SarifTransformer.fromViolations(allParsedViolations),
+          this.violationsConfig.getSarifFile());
     }
     if (this.violationsConfig.getViolationsFile() != null) {
       this.createJsonFile(allParsedViolations, this.violationsConfig.getViolationsFile());
