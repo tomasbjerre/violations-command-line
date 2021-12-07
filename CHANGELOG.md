@@ -2,6 +2,19 @@
 
 Changelog of violations-command-line.
 
+## [1.20.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.20.0) (2021-12-07)
+
+
+
+### Features
+
+-  sarif ([42966](https://github.com/tomasbjerre/violations-command-line/commit/42966e069c22f79))  
+-  using npm-java-runner ([36196](https://github.com/tomasbjerre/violations-command-line/commit/36196e167682267))  
+
+
+
+
+
 ## [1.18.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.18.0) (2021-07-12)
 
 
