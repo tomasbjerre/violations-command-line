@@ -8,7 +8,6 @@ import static se.bjurr.violations.git.ViolationsReporterApi.violationsReporterAp
 import static se.bjurr.violations.git.ViolationsReporterDetailLevel.VERBOSE;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 import static se.bjurr.violations.lib.model.SEVERITY.INFO;
-import static se.bjurr.violations.lib.model.codeclimate.CodeClimateTransformer.fromViolations;
 import static se.softhouse.jargo.Arguments.bigDecimalArgument;
 import static se.softhouse.jargo.Arguments.booleanArgument;
 import static se.softhouse.jargo.Arguments.enumArgument;
@@ -34,13 +33,17 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+
 import javax.script.ScriptException;
+
 import se.bjurr.violations.git.ViolationsGit;
 import se.bjurr.violations.git.ViolationsReporterDetailLevel;
 import se.bjurr.violations.lib.FilteringViolationsLogger;
 import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 import se.bjurr.violations.lib.model.Violation;
+import se.bjurr.violations.lib.model.codeclimate.CodeClimateTransformer;
+import se.bjurr.violations.lib.model.sarif.SarifTransformer;
 import se.bjurr.violations.lib.parsers.JacocoParser;
 import se.bjurr.violations.lib.parsers.JacocoParserSettings;
 import se.bjurr.violations.lib.parsers.ViolationsParser;
@@ -329,11 +332,11 @@ public class Runner {
 
     if (this.violationsConfig.getCodeClimateFile() != null) {
       this.createJsonFile(
-          fromViolations(allParsedViolations), this.violationsConfig.getCodeClimateFile());
+    		  CodeClimateTransformer.fromViolations(allParsedViolations), this.violationsConfig.getCodeClimateFile());
     }
     if (this.violationsConfig.getSarifFile() != null) {
       this.createJsonFile(
-          fromViolations(allParsedViolations), this.violationsConfig.getSarifFile());
+          SarifTransformer.fromViolations(allParsedViolations), this.violationsConfig.getSarifFile());
     }
     if (this.violationsConfig.getViolationsFile() != null) {
       this.createJsonFile(allParsedViolations, this.violationsConfig.getViolationsFile());
