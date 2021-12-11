@@ -2,6 +2,18 @@
 
 Changelog of violations-command-line.
 
+## [1.21.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.21.0) (2021-12-11)
+
+
+
+### Features
+
+-  Dart MACHINE parser ([ab994](https://github.com/tomasbjerre/violations-command-line/commit/ab9947c0c710e4b))  [#142](https://github.com/tomasbjerre/violations-command-line/issues/142)  
+
+
+
+
+
 ## [1.20.5](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.20.5) (2021-12-07)
 
 
