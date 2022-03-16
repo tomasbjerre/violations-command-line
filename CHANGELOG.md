@@ -2,19 +2,7 @@
 
 Changelog of violations-command-line.
 
-## [1.21.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.21.0) (2021-12-11)
-
-
-
-### Features
-
--  Dart MACHINE parser ([ab994](https://github.com/tomasbjerre/violations-command-line/commit/ab9947c0c710e4b))  [#142](https://github.com/tomasbjerre/violations-command-line/issues/142)  
-
-
-
-
-
-## [1.20.5](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.20.5) (2021-12-07)
+## 1.21.1 (2022-03-16)
 
 
 
@@ -22,61 +10,85 @@ Changelog of violations-command-line.
 
 ### Bug Fixes
 
--  SARIF ([72c05](https://github.com/tomasbjerre/violations-command-line/commit/72c05c08d44d359))  
+-  sarif parser with location references ([a1025](https://github.com/tomasbjerre/violations-command-line/commit/a10253185ae9f98) Tomas Bjerre)  
 
 
 
-## [1.20.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.20.0) (2021-12-07)
-
-
-
-### Features
-
--  sarif ([42966](https://github.com/tomasbjerre/violations-command-line/commit/42966e069c22f79))  
--  using npm-java-runner ([36196](https://github.com/tomasbjerre/violations-command-line/commit/36196e167682267))  
-
-
-
-
-
-## [1.18.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.18.0) (2021-07-12)
+## 1.21.0 (2021-12-11)
 
 
 
 ### Features
 
--  adding configurable Jacoco parser ([10019](https://github.com/tomasbjerre/violations-command-line/commit/10019b527ec5ac8))  
+-  Dart MACHINE parser ([ab994](https://github.com/tomasbjerre/violations-command-line/commit/ab9947c0c710e4b) Tomas Bjerre)  [#142](https://github.com/tomasbjerre/violations-command-line/issues/142)  
 
 
 
 
 
-## [1.17.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.17.0) (2021-07-01)
+## 1.20.5 (2021-12-07)
+
+
+
+
+
+### Bug Fixes
+
+-  SARIF ([72c05](https://github.com/tomasbjerre/violations-command-line/commit/72c05c08d44d359) Tomas Bjerre)  
+
+
+
+## 1.20.0 (2021-12-07)
 
 
 
 ### Features
 
--  config file ([1f91d](https://github.com/tomasbjerre/violations-command-line/commit/1f91dc8360ac6a1))  [#2](https://github.com/tomasbjerre/violations-command-line/issues/2)  
+-  sarif ([42966](https://github.com/tomasbjerre/violations-command-line/commit/42966e069c22f79) Tomas Bjerre)  
+-  using npm-java-runner ([36196](https://github.com/tomasbjerre/violations-command-line/commit/36196e167682267) Tomas Bjerre)  
 
 
 
 
 
-## [1.16.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.16.0) (2021-06-16)
+## 1.18.0 (2021-07-12)
 
 
 
 ### Features
 
--  MSBuild parser ([c7b3f](https://github.com/tomasbjerre/violations-command-line/commit/c7b3f710150f3f3))  
--  MSBuild parser ([030f1](https://github.com/tomasbjerre/violations-command-line/commit/030f1b84ffb3019))  
+-  adding configurable Jacoco parser ([10019](https://github.com/tomasbjerre/violations-command-line/commit/10019b527ec5ac8) Tomas Bjerre)  
 
 
 
 
 
-## [1.15.0](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.15.0) (2021-04-05)
+## 1.17.0 (2021-07-01)
+
+
+
+### Features
+
+-  config file ([1f91d](https://github.com/tomasbjerre/violations-command-line/commit/1f91dc8360ac6a1) Tomas Bjerre)  [#2](https://github.com/tomasbjerre/violations-command-line/issues/2)  
+
+
+
+
+
+## 1.16.0 (2021-06-16)
+
+
+
+### Features
+
+-  MSBuild parser ([c7b3f](https://github.com/tomasbjerre/violations-command-line/commit/c7b3f710150f3f3) Tomas Bjerre)  
+-  MSBuild parser ([030f1](https://github.com/tomasbjerre/violations-command-line/commit/030f1b84ffb3019) Tomas Bjerre)  
+
+
+
+
+
+## 1.15.0 (2021-04-05)
 
 
 
@@ -92,7 +104,7 @@ Changelog of violations-command-line.
 [637e7](https://github.com/tomasbjerre/violations-command-line/commit/637e7010efde113) Tomas Bjerre *2021-04-05 11:52:23*
 
 
-## [1.13](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.13) (2020-10-04)
+## 1.13 (2020-10-04)
 
 
 
@@ -108,7 +120,7 @@ Changelog of violations-command-line.
 [630da](https://github.com/tomasbjerre/violations-command-line/commit/630da33016ca8a0) Tomas Bjerre *2020-10-04 10:25:40*
 
 
-## [1.12](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.12) (2020-10-04)
+## 1.12 (2020-10-04)
 
 
 
@@ -124,7 +136,7 @@ Changelog of violations-command-line.
 [fe8fd](https://github.com/tomasbjerre/violations-command-line/commit/fe8fdc33daa2a16) Tomas Bjerre *2020-10-04 07:33:33*
 
 
-## [1.11](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.11) (2020-09-27)
+## 1.11 (2020-09-27)
 
 
 
@@ -145,7 +157,7 @@ Changelog of violations-command-line.
 [e4f7b](https://github.com/tomasbjerre/violations-command-line/commit/e4f7bec65726c97) Tomas Bjerre *2020-09-27 16:25:05*
 
 
-## [1.10](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.10) (2020-09-23)
+## 1.10 (2020-09-23)
 
 
 
@@ -161,7 +173,7 @@ Changelog of violations-command-line.
 [c4844](https://github.com/tomasbjerre/violations-command-line/commit/c48443b111462b2) Tomas Bjerre *2020-09-23 15:54:04*
 
 
-## [1.9](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.9) (2020-09-20)
+## 1.9 (2020-09-20)
 
 
 
@@ -177,7 +189,7 @@ Changelog of violations-command-line.
 [83614](https://github.com/tomasbjerre/violations-command-line/commit/83614cf9591932f) Tomas Bjerre *2020-09-20 13:45:54*
 
 
-## [1.8](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.8) (2020-07-23)
+## 1.8 (2020-07-23)
 
 
 
@@ -198,7 +210,7 @@ Changelog of violations-command-line.
 [7f1f7](https://github.com/tomasbjerre/violations-command-line/commit/7f1f766f2cf6b6c) Tomas Bjerre *2020-07-23 05:02:07*
 
 
-## [1.7](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.7) (2020-07-05)
+## 1.7 (2020-07-05)
 
 
 
@@ -207,7 +219,7 @@ Changelog of violations-command-line.
 
 
 
-## [1.6](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.6) (2020-02-03)
+## 1.6 (2020-02-03)
 
 
 
@@ -223,7 +235,7 @@ Changelog of violations-command-line.
 [098bf](https://github.com/tomasbjerre/violations-command-line/commit/098bf2345260f16) Tomas Bjerre *2020-02-03 16:52:32*
 
 
-## [1.5](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.5) (2020-01-03)
+## 1.5 (2020-01-03)
 
 
 
@@ -239,7 +251,7 @@ Changelog of violations-command-line.
 [762dc](https://github.com/tomasbjerre/violations-command-line/commit/762dcbdfa148382) Tomas Bjerre *2020-01-03 06:53:49*
 
 
-## [1.4](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.4) (2019-10-25)
+## 1.4 (2019-10-25)
 
 
 
@@ -265,7 +277,7 @@ Changelog of violations-command-line.
 [360e8](https://github.com/tomasbjerre/violations-command-line/commit/360e88fbf067390) Tomas Bjerre *2019-09-28 06:59:38*
 
 
-## [1.3](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.3) (2019-09-07)
+## 1.3 (2019-09-07)
 
 
 
@@ -281,7 +293,7 @@ Changelog of violations-command-line.
 [1b197](https://github.com/tomasbjerre/violations-command-line/commit/1b197c14276385f) Tomas Bjerre *2019-09-07 13:02:53*
 
 
-## [1.2](https://github.com/tomasbjerre/violations-command-line/releases/tag/1.2) (2019-08-03)
+## 1.2 (2019-08-03)
 
 
 
@@ -301,5 +313,9 @@ Changelog of violations-command-line.
 
 [24ff1](https://github.com/tomasbjerre/violations-command-line/commit/24ff17e322091e4) Tomas Bjerre *2019-06-01 10:33:52*
 
+**first**
 
-    
+
+[49d6c](https://github.com/tomasbjerre/violations-command-line/commit/49d6cee69d71d71) Tomas Bjerre *2019-05-30 21:26:42*
+
+
