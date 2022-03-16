@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 
 buildscript {
  repositories {
@@ -28,8 +28,8 @@ apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
 
 dependencies {
- compile 'se.bjurr.violations:violations-git-lib:1.+'
- compile 'se.softhouse:jargo:0.1.1'
- compile 'org.slf4j:slf4j-simple:1.8.0-beta2'
- testCompile 'junit:junit:4.12'
+ api 'se.bjurr.violations:violations-git-lib:1.+'
+ api 'se.softhouse:jargo:0.1.1'
+ api 'org.slf4j:slf4j-simple:1.8.0-beta2'
+ testImplementation 'junit:junit:4.12'
 }
