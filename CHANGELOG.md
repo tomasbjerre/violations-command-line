@@ -2,6 +2,18 @@
 
 Changelog of violations-command-line.
 
+## 1.21.2 (2022-03-17)
+
+
+
+
+
+### Bug Fixes
+
+-  correcting groupId ([1ef63](https://github.com/tomasbjerre/violations-command-line/commit/1ef6321728d94b4) Tomas Bjerre)  
+
+
+
 ## 1.21.1 (2022-03-16)
 
 
