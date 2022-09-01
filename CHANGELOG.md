@@ -2,111 +2,63 @@
 
 Changelog of violations-command-line.
 
+## 1.22.0 (2022-09-01)
+
+### Features
+
+-  stepping violations-lib ([cc92b](https://github.com/tomasbjerre/violations-command-line/commit/cc92bf5253695b2) Tomas Bjerre)  
+
 ## 1.21.2 (2022-03-17)
-
-
-
-
 
 ### Bug Fixes
 
 -  correcting groupId ([1ef63](https://github.com/tomasbjerre/violations-command-line/commit/1ef6321728d94b4) Tomas Bjerre)  
 
-
-
 ## 1.21.1 (2022-03-16)
-
-
-
-
 
 ### Bug Fixes
 
 -  sarif parser with location references ([a1025](https://github.com/tomasbjerre/violations-command-line/commit/a10253185ae9f98) Tomas Bjerre)  
 
-
-
 ## 1.21.0 (2021-12-11)
-
-
 
 ### Features
 
 -  Dart MACHINE parser ([ab994](https://github.com/tomasbjerre/violations-command-line/commit/ab9947c0c710e4b) Tomas Bjerre)  [#142](https://github.com/tomasbjerre/violations-command-line/issues/142)  
 
-
-
-
-
 ## 1.20.5 (2021-12-07)
-
-
-
-
 
 ### Bug Fixes
 
 -  SARIF ([72c05](https://github.com/tomasbjerre/violations-command-line/commit/72c05c08d44d359) Tomas Bjerre)  
 
-
-
 ## 1.20.0 (2021-12-07)
-
-
 
 ### Features
 
 -  sarif ([42966](https://github.com/tomasbjerre/violations-command-line/commit/42966e069c22f79) Tomas Bjerre)  
 -  using npm-java-runner ([36196](https://github.com/tomasbjerre/violations-command-line/commit/36196e167682267) Tomas Bjerre)  
 
-
-
-
-
 ## 1.18.0 (2021-07-12)
-
-
 
 ### Features
 
 -  adding configurable Jacoco parser ([10019](https://github.com/tomasbjerre/violations-command-line/commit/10019b527ec5ac8) Tomas Bjerre)  
 
-
-
-
-
 ## 1.17.0 (2021-07-01)
-
-
 
 ### Features
 
 -  config file ([1f91d](https://github.com/tomasbjerre/violations-command-line/commit/1f91dc8360ac6a1) Tomas Bjerre)  [#2](https://github.com/tomasbjerre/violations-command-line/issues/2)  
 
-
-
-
-
 ## 1.16.0 (2021-06-16)
-
-
 
 ### Features
 
 -  MSBuild parser ([c7b3f](https://github.com/tomasbjerre/violations-command-line/commit/c7b3f710150f3f3) Tomas Bjerre)  
 -  MSBuild parser ([030f1](https://github.com/tomasbjerre/violations-command-line/commit/030f1b84ffb3019) Tomas Bjerre)  
 
-
-
-
-
 ## 1.15.0 (2021-04-05)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -118,12 +70,6 @@ Changelog of violations-command-line.
 
 ## 1.13 (2020-10-04)
 
-
-
-
-
-
-
 ### Other changes
 
 **check_name and engine_name in CodeClimate**
@@ -134,12 +80,6 @@ Changelog of violations-command-line.
 
 ## 1.12 (2020-10-04)
 
-
-
-
-
-
-
 ### Other changes
 
 **check_name and engine_name in CodeClimate #112**
@@ -149,12 +89,6 @@ Changelog of violations-command-line.
 
 
 ## 1.11 (2020-09-27)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -171,12 +105,6 @@ Changelog of violations-command-line.
 
 ## 1.10 (2020-09-23)
 
-
-
-
-
-
-
 ### Other changes
 
 **Allow Checkstyle reports with no line**
@@ -187,12 +115,6 @@ Changelog of violations-command-line.
 
 ## 1.9 (2020-09-20)
 
-
-
-
-
-
-
 ### Other changes
 
 **violations-lib 1.128**
@@ -202,12 +124,6 @@ Changelog of violations-command-line.
 
 
 ## 1.8 (2020-07-23)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -224,20 +140,7 @@ Changelog of violations-command-line.
 
 ## 1.7 (2020-07-05)
 
-
-
-
-
-
-
-
 ## 1.6 (2020-02-03)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -249,12 +152,6 @@ Changelog of violations-command-line.
 
 ## 1.5 (2020-01-03)
 
-
-
-
-
-
-
 ### Other changes
 
 **Add support for sonar issue report formats >= v7.5 tomasbjerre/violations-lib#80**
@@ -264,12 +161,6 @@ Changelog of violations-command-line.
 
 
 ## 1.4 (2019-10-25)
-
-
-
-
-
-
 
 ### Other changes
 
@@ -291,12 +182,6 @@ Changelog of violations-command-line.
 
 ## 1.3 (2019-09-07)
 
-
-
-
-
-
-
 ### Other changes
 
 **CodeClimate and exports**
@@ -306,12 +191,6 @@ Changelog of violations-command-line.
 
 
 ## 1.2 (2019-08-03)
-
-
-
-
-
-
 
 ### Other changes
 
