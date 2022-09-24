@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.22.1 (2022-09-24)
+
+### Bug Fixes
+
+-  make paths relative in CodeClimate ([d7704](https://github.com/tomasbjerre/violations-command-line/commit/d7704ef76841273) Tomas Bjerre)  
+
 ## 1.22.0 (2022-09-01)
 
 ### Features
