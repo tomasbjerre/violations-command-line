@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.22.3 (2022-09-24)
+
+### Bug Fixes
+
+-  relative in CodeClimate ([4f374](https://github.com/tomasbjerre/violations-command-line/commit/4f374a06b024e20) Tomas Bjerre)  
+
 ## 1.22.1 (2022-09-24)
 
 ### Bug Fixes
