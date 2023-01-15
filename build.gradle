@@ -28,7 +28,7 @@ apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
 
 dependencies {
- api 'se.bjurr.violations:violations-git-lib:1.47.3'
+ api 'se.bjurr.violations:violations-git-lib:1.47.4'
  api 'se.softhouse:jargo:0.4.14'
  api 'org.slf4j:slf4j-simple:2.0.6'
  testImplementation 'junit:junit:4.13.2'
