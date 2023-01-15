@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.22.8 (2023-01-15)
+
+### Bug Fixes
+
+-  relative paths to root in sarif export ([e2737](https://github.com/tomasbjerre/violations-command-line/commit/e2737a7d4e3be55) Tomas Bjerre)  
+
 ## 1.22.7 (2023-01-15)
 
 ### Bug Fixes
