@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.22.4 (2023-01-15)
+
+### Bug Fixes
+
+-  producing valid sarif format ([ba169](https://github.com/tomasbjerre/violations-command-line/commit/ba169793feb18fa) Tomas Bjerre)  [#7](https://github.com/tomasbjerre/violations-command-line/issues/7)  
+
 ## 1.22.3 (2022-09-24)
 
 ### Bug Fixes
