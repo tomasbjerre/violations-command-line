@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.22.7 (2023-01-15)
+
+### Bug Fixes
+
+-  documenting github actions ([20bf4](https://github.com/tomasbjerre/violations-command-line/commit/20bf41f2fd0ea42) Tomas Bjerre)  
+
 ## 1.22.6 (2023-01-15)
 
 ### Bug Fixes
