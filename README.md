@@ -17,25 +17,32 @@ npx violations-command-line -s ERROR -mv 0 \
 
 It can parse results from static code analysis and:
 
- * Report violations in the build log.
- * Export to a normalized JSON format.
+- Report violations in the build log.
+- Export to a normalized JSON format.
+
 ```bash
 npx violations-command-line -vf violations-report.json \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle"
 ```
- * Export to CodeClimate JSON.
+
+- Export to CodeClimate JSON.
+
 ```bash
 npx violations-command-line -cc code-climate-report.json \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle"
 ```
- * Export to Sarif JSON.
+
+- Export to Sarif JSON.
+
 ```bash
 npx violations-command-line -sa sarif-report.json \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle"
 ```
- * Optionally fail the build depending on violations found.
+
+- Optionally fail the build depending on violations found.
 
 A snippet of the output may look like this:
+
 ```
 ...
 se/bjurr/violations/lib/example/OtherClass.java
@@ -83,6 +90,39 @@ Summary
 ║            │ 6    │ 3    │ 6     │ 15    ║
 ╚════════════╧══════╧══════╧═══════╧═══════╝
 ```
+
+## Github actions
+
+There is a [violation-comments-action](https://github.com/tomasbjerre/violation-comments-action). But it is basically just a wrapper around this command line tool.
+
+You may want to use this tool in an action, something like this:
+
+```yml
+name: My workflow
+
+on: [workflow_call, push, pull_request]
+
+jobs:
+  steps:
+    - name: Build
+      run: |
+        your-build-command-here
+    - name: Transorm static code analysis to SARIF
+      if: success() || failure()
+      run: |
+        npx violations-command-line -sarif sarif-report.json \
+        -v "FINDBUGS" "." ".*spotbugs/main\.xml$" "Spotbugs" \
+        -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
+        -v "PMD" "." ".*pmd/main\.xml$" "PMD" \
+        -v "JUNIT" "." ".*test/TEST-.*\.xml$" "JUNIT"
+    - uses: github/codeql-action/upload-sarif@v2
+      if: success() || failure()
+      with:
+        sarif_file: sarif-report.json
+```
+
+## Formats
+
 
 Example of supported reports are available [here](https://github.com/tomasbjerre/violations-lib/tree/master/src/test/resources).
 
@@ -173,15 +213,15 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
 # Usage
 
 ```shell
--code-climate, -cc <path>                               Create a CodeClimate 
-                                                        file with all the 
+-code-climate, -cc <path>                               Create a CodeClimate
+                                                        file with all the
                                                         violations.
                                                         <path>: a file path
                                                         Default: /home/bjerre/workspace/violations/violations-command-line/.
--config-file, -cf <path>                                Will read config from 
-                                                        given file. Can also be 
-                                                        configured with environment 
-                                                        variable VIOLATIONS_CONFIG. 
+-config-file, -cf <path>                                Will read config from
+                                                        given file. Can also be
+                                                        configured with environment
+                                                        variable VIOLATIONS_CONFIG.
                                                         Format is what you get from -
                                                         show-json-config.
                                                         <path>: a file path
@@ -191,39 +231,39 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
                                                         Default: VERBOSE
 -diff-detail-level, -ddl                                <ViolationsReporterDetailLevel>: {VERBOSE | COMPACT | PER_FILE_COMPACT}
 <ViolationsReporterDetailLevel>                         Default: VERBOSE
--diff-from, -df <string>                                Can be empty 
+-diff-from, -df <string>                                Can be empty
                                                         (ignored), Git-commit or any Git-
                                                         reference
                                                         <string>: any string
-                                                        Default: 
--diff-max-violations, -dmv <integer>                    Will fail the build if 
-                                                        total number of found 
+                                                        Default:
+-diff-max-violations, -dmv <integer>                    Will fail the build if
+                                                        total number of found
                                                         violations is higher
                                                         <integer>: -2,147,483,648 to 2,147,483,647
                                                         Default: 2,147,483,647
--diff-print-violations, -dpv <boolean>                  Will print violations 
+-diff-print-violations, -dpv <boolean>                  Will print violations
                                                         found in diff
                                                         <boolean>: true or false
                                                         Default: false
 -diff-severity, -ds <SEVERITY>                          <SEVERITY>: {INFO | WARN | ERROR}
                                                         Default: INFO
--diff-to, -dt <string>                                  Can be empty 
+-diff-to, -dt <string>                                  Can be empty
                                                         (ignored), Git-commit or any Git-
                                                         reference
                                                         <string>: any string
-                                                        Default: 
+                                                        Default:
 -git-repo, -gr <path>                                   Where to look for Git.
                                                         <path>: a file path
                                                         Default: /home/bjerre/workspace/violations/violations-command-line/.
 -h, --help <argument-to-print-help-for>                 <argument-to-print-help-for>: an argument to print help for
                                                         Default: If no specific parameter is given the whole usage text is given
--jacoco-min-coverage, -jmc <big-decimal>                Minimum coverage in 
-                                                        Jacoco that will generate a 
+-jacoco-min-coverage, -jmc <big-decimal>                Minimum coverage in
+                                                        Jacoco that will generate a
                                                         violation.
                                                         <big-decimal>: an arbitrary decimal number (practically no limits)
                                                         Default: 0.7
--jacoco-min-line-count, -jmlc <integer>                 Minimum line count in 
-                                                        Jacoco that will generate a 
+-jacoco-min-line-count, -jmlc <integer>                 Minimum line count in
+                                                        Jacoco that will generate a
                                                         violation.
                                                         <integer>: -2,147,483,648 to 2,147,483,647
                                                         Default: 4
@@ -242,57 +282,57 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
 -max-severity-column-width, -mscw <integer>             0 means no limit
                                                         <integer>: -2,147,483,648 to 2,147,483,647
                                                         Default: 0
--max-violations, -mv <integer>                          Will fail the build if 
-                                                        total number of found 
+-max-violations, -mv <integer>                          Will fail the build if
+                                                        total number of found
                                                         violations is higher.
                                                         <integer>: -2,147,483,648 to 2,147,483,647
                                                         Default: 2,147,483,647
--print-violations, -pv <boolean>                        Will print violations 
+-print-violations, -pv <boolean>                        Will print violations
                                                         found
                                                         <boolean>: true or false
                                                         Default: true
--sarif, -ss <path>                                      Create a Sarif file 
+-sarif, -ss <path>                                      Create a Sarif file
                                                         with all the violations.
                                                         <path>: a file path
                                                         Default: /home/bjerre/workspace/violations/violations-command-line/.
--severity, -s <SEVERITY>                                Minimum severity level 
+-severity, -s <SEVERITY>                                Minimum severity level
                                                         to report.
                                                         <SEVERITY>: {INFO | WARN | ERROR}
                                                         Default: INFO
--show-debug-info                                        Please run your 
-                                                        command with this parameter 
-                                                        and supply output when 
+-show-debug-info                                        Please run your
+                                                        command with this parameter
+                                                        and supply output when
                                                         reporting bugs.
                                                         Default: disabled
--show-json-config                                       Will print the given 
+-show-json-config                                       Will print the given
                                                         config as JSON.
                                                         Default: disabled
---violations, -v <string>                               The violations to look 
-                                                        for. <PARSER> <FOLDER> 
-                                                        <REGEXP PATTERN> <NAME> where 
-                                                        PARSER is one of: 
-                                                        ANDROIDLINT, CHECKSTYLE, CODENARC, 
-                                                        CLANG, CPD, CPPCHECK, 
-                                                        CPPLINT, CSSLINT, GENERIC, 
-                                                        FINDBUGS, FLAKE8, FXCOP, 
-                                                        GENDARME, IAR, JACOCO, JCREPORT, 
-                                                        JSLINT, JUNIT, LINT, KLOCWORK, 
-                                                        KOTLINMAVEN, KOTLINGRADLE, MSCPP, 
-                                                        MSBULDLOG, MYPY, GOLINT, 
-                                                        GOOGLEERRORPRONE, PERLCRITIC, PITEST, 
-                                                        PMD, PROTOLINT, PYDOCSTYLE, 
-                                                        PYLINT, RESHARPER, 
-                                                        SARIFPARSER, SBTSCALAC, SIMIAN, 
-                                                        SONAR, STYLECOP, XMLLINT, 
-                                                        YAMLLINT, ZPTLINT, DOCFX, 
-                                                        PCLINT, CODECLIMATE, XUNIT, 
+--violations, -v <string>                               The violations to look
+                                                        for. <PARSER> <FOLDER>
+                                                        <REGEXP PATTERN> <NAME> where
+                                                        PARSER is one of:
+                                                        ANDROIDLINT, CHECKSTYLE, CODENARC,
+                                                        CLANG, CPD, CPPCHECK,
+                                                        CPPLINT, CSSLINT, GENERIC,
+                                                        FINDBUGS, FLAKE8, FXCOP,
+                                                        GENDARME, IAR, JACOCO, JCREPORT,
+                                                        JSLINT, JUNIT, LINT, KLOCWORK,
+                                                        KOTLINMAVEN, KOTLINGRADLE, MSCPP,
+                                                        MSBULDLOG, MYPY, GOLINT,
+                                                        GOOGLEERRORPRONE, PERLCRITIC, PITEST,
+                                                        PMD, PROTOLINT, PYDOCSTYLE,
+                                                        PYLINT, RESHARPER,
+                                                        SARIFPARSER, SBTSCALAC, SIMIAN,
+                                                        SONAR, STYLECOP, XMLLINT,
+                                                        YAMLLINT, ZPTLINT, DOCFX,
+                                                        PCLINT, CODECLIMATE, XUNIT,
                                                         VALGRIND
-                                                         Example: -v "JSHINT" 
-                                                        "." ".*/jshint.xml$" 
+                                                         Example: -v "JSHINT"
+                                                        "." ".*/jshint.xml$"
                                                         "JSHint" [Supports Multiple occurrences]
                                                         <string>: any string
                                                         Default: Empty list
--violations-file, -vf <path>                            Create a JSON file 
+-violations-file, -vf <path>                            Create a JSON file
                                                         with all the violations.
                                                         <path>: a file path
                                                         Default: /home/bjerre/workspace/violations/violations-command-line/.
