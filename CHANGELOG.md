@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.22.5 (2023-01-15)
+
+### Bug Fixes
+
+-  avoid line 0 in sarif parser, invalid ([eb2e4](https://github.com/tomasbjerre/violations-command-line/commit/eb2e404452cb5d4) Tomas Bjerre)  
+
 ## 1.22.4 (2023-01-15)
 
 ### Bug Fixes
