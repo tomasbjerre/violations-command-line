@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.23.0 (2023-01-16)
+
+### Features
+
+-  ansible-later parser ([ac110](https://github.com/tomasbjerre/violations-command-line/commit/ac1108d78f59c74) Tomas Bjerre)  
+
 ## 1.22.9 (2023-01-15)
 
 ### Bug Fixes
