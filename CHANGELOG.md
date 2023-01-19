@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.24.0 (2023-01-19)
+
+### Features
+
+-  semgrep parser ([0a12b](https://github.com/tomasbjerre/violations-command-line/commit/0a12b69b104428f) Tomas Bjerre)  
+
 ## 1.23.0 (2023-01-16)
 
 ### Features
