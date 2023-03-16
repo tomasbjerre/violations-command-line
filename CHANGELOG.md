@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.24.1 (2023-03-16)
+
+### Bug Fixes
+
+-  rule resolution in sarif ([4c860](https://github.com/tomasbjerre/violations-command-line/commit/4c86001fedec814) Tomas Bjerre)  
+
 ## 1.24.0 (2023-01-19)
 
 ### Features
