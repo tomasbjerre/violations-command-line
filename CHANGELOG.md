@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.24.2 (2023-06-01)
+
+### Bug Fixes
+
+-  massive speed regression when processing lots of files ([591c3](https://github.com/tomasbjerre/violations-command-line/commit/591c325eac98f55) Tomas Bjerre)  
+
 ## 1.24.1 (2023-03-16)
 
 ### Bug Fixes
