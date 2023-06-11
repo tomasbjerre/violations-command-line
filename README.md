@@ -2,10 +2,14 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.bjurr.violations/violations-command-line/badge.svg)](https://maven-badges.herokuapp.com/maven-central/se.bjurr.violations/violations-command-line)
 [![NPM](https://img.shields.io/npm/v/violations-command-line.svg?style=flat-square) ](https://www.npmjs.com/package/violations-command-line)
+[![NPM Downloads](https://img.shields.io/npm/dm/violations-command-line.svg?style=flat)](https://www.npmjs.com/package/violations-command-line)
+[![Docker Pulls](https://badgen.net/docker/pulls/tomasbjerre/violations-command-line?icon=docker&label=pulls)](https://hub.docker.com/r/tomasbjerre/violations-command-line/)
 
 This is a command line tool that will find report files from static code analysis, present and optionally fail the command. It uses the [Violations Lib](https://github.com/tomasbjerre/violations-lib).
 
-The runnable can be found in [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22violations-command-line%22) or [NPM](https://www.npmjs.com/package/violations-command-line).
+- The runnable can be found in [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22violations-command-line%22)
+- or [NPM](https://www.npmjs.com/package/violations-command-line).
+- The `Docker` image can be found in [Dockerhub](https://hub.docker.com/r/tomasbjerre/violations-command-line) and used like `docker run --mount src="$(pwd)",target=/home/violations-command-line,type=bind tomasbjerre/violations-command-line:X`.
 
 Run it with:
 
