@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.25.0 (2023-06-11)
+
+### Features
+
+-  docker image ([314db](https://github.com/tomasbjerre/violations-command-line/commit/314dbc70765e53d) Tomas Bjerre)  
+
 ## 1.24.2 (2023-06-01)
 
 ### Bug Fixes
