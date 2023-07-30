@@ -95,11 +95,9 @@ Summary
 ╚════════════╧══════╧══════╧═══════╧═══════╝
 ```
 
-## Github actions
+## GitHub
 
-There is a [violation-comments-action](https://github.com/tomasbjerre/violation-comments-action). But it is basically just a wrapper around this command line tool.
-
-You may want to use this tool in an action, something like this:
+GitHub is supported via `SARIF`. This tool can export `SARIF` format and it can be uploaded to Github to get feedback in pull-requests.
 
 ```yml
 name: My workflow
@@ -123,6 +121,30 @@ jobs:
       if: success() || failure()
       with:
         sarif_file: sarif-report.json
+```
+
+## GitLab
+
+GitLab is supported via `CodeClimate`. This tool can export `CodeClimate` format and it can be uploaded to GitLab to get feedback in pull-requests.
+
+If you export `CodeClimate` like this:
+
+```sh
+npx violations-command-line -cc code-climate-report.json \
+  -v "FINDBUGS" "." ".*spotbugs/main\.xml$" "Spotbugs" \
+  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
+  -v "PMD" "." ".*pmd/main\.xml$" "PMD" \
+  -v "JUNIT" "." ".*test/TEST-.*\.xml$" "JUNIT"
+```
+
+You can upload it like this:
+
+```yml
+  artifacts:
+    paths:
+      - code-climate-report.json
+    reports:
+      codequality: code-climate-report.json
 ```
 
 ## Formats
