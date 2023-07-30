@@ -2,6 +2,8 @@
 
 Changelog of violations-command-line.
 
+## 1.25.1 (2023-07-30)
+
 ## 1.25.0 (2023-06-11)
 
 ### Features
