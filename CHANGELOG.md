@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.25.3 (2023-09-17)
+
+### Bug Fixes
+
+-  avoiding duplicated fingerprints in CodeClimate report ([9833e](https://github.com/tomasbjerre/violations-command-line/commit/9833efb0bedf4b5) Tomas Bjerre)  
+
 ## 1.25.2 (2023-09-17)
 
 ### Bug Fixes
