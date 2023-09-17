@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 1.25.2 (2023-09-17)
+
+### Bug Fixes
+
+-  allow MSBuild in Program Files (x86) and support NU1701 ([fc8f4](https://github.com/tomasbjerre/violations-command-line/commit/fc8f4ec0d5d7179) Tomas Bjerre)  
+
 ## 1.25.1 (2023-07-30)
 
 ## 1.25.0 (2023-06-11)
