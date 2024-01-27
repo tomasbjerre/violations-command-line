@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 2.0.0 (2024-01-27)
+
+### Breaking changes
+
+-  JGit 6 and Java 11 ([65cfd](https://github.com/tomasbjerre/violations-command-line/commit/65cfd7a6424f575) Tomas Bjerre)  
+
 ## 1.25.3 (2023-09-17)
 
 ### Bug Fixes
