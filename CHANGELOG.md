@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 2.1.0 (2024-03-24)
+
+### Features
+
+-  coverity parser ([8135e](https://github.com/tomasbjerre/violations-command-line/commit/8135e095854316e) Tomas Bjerre)  
+
 ## 2.0.0 (2024-01-27)
 
 ### Breaking changes
