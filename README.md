@@ -9,7 +9,9 @@ This is a command line tool that will find report files from static code analysi
 
 - The runnable can be found in [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22violations-command-line%22)
 - or [NPM](https://www.npmjs.com/package/violations-command-line).
-- The `Docker` image can be found in [Dockerhub](https://hub.docker.com/r/tomasbjerre/violations-command-line) and used like `docker run --mount src="$(pwd)",target=/home/violations-command-line,type=bind tomasbjerre/violations-command-line:X`.
+- The `Docker` image can be found in [Dockerhub](https://hub.docker.com/r/tomasbjerre/violations-command-line)
+  - Can used like `docker run --mount src="$(pwd)",target=/home/violations-command-line,type=bind tomasbjerre/violations-command-line:a.b.c -v "FINDBUGS" src/test/resources/findbugs/ ".*main\.xml$" "Spotbugs"`.
+  - Or open a shell to have a look `docker run --rm -it --entrypoint sh tomasbjerre/violations-command-line:a.b.c`
 
 Run it with:
 
