@@ -18,7 +18,7 @@ Run it with:
 ```bash
 npx violations-command-line -s ERROR -mv 0 \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
- -v "JSHINT" "." ".*jshint/report\.xml$" "JSHint"
+ -v "JSLINT" "." ".*jshint/report\.xml$" "JSHint"
 ```
 
 It can parse results from static code analysis and:
@@ -245,129 +245,85 @@ Missing a format? Open an issue [here](https://github.com/tomasbjerre/violations
 # Usage
 
 ```shell
--code-climate, -cc <path>                               Create a CodeClimate
-                                                        file with all the
-                                                        violations.
-                                                        <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
--config-file, -cf <path>                                Will read config from
-                                                        given file. Can also be
-                                                        configured with environment
-                                                        variable VIOLATIONS_CONFIG.
-                                                        Format is what you get from -
-                                                        show-json-config.
-                                                        <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
--detail-level, -dl <ViolationsReporterDetailLevel>      Verbosity
-                                                        <ViolationsReporterDetailLevel>: {VERBOSE | COMPACT | PER_FILE_COMPACT}
-                                                        Default: VERBOSE
--diff-detail-level, -ddl                                <ViolationsReporterDetailLevel>: {VERBOSE | COMPACT | PER_FILE_COMPACT}
-<ViolationsReporterDetailLevel>                         Default: VERBOSE
--diff-from, -df <string>                                Can be empty
-                                                        (ignored), Git-commit or any Git-
-                                                        reference
-                                                        <string>: any string
-                                                        Default:
--diff-max-violations, -dmv <integer>                    Will fail the build if
-                                                        total number of found
-                                                        violations is higher
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 2,147,483,647
--diff-print-violations, -dpv <boolean>                  Will print violations
-                                                        found in diff
-                                                        <boolean>: true or false
-                                                        Default: false
--diff-severity, -ds <SEVERITY>                          <SEVERITY>: {INFO | WARN | ERROR}
-                                                        Default: INFO
--diff-to, -dt <string>                                  Can be empty
-                                                        (ignored), Git-commit or any Git-
-                                                        reference
-                                                        <string>: any string
-                                                        Default:
--git-repo, -gr <path>                                   Where to look for Git.
-                                                        <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
--h, --help <argument-to-print-help-for>                 <argument-to-print-help-for>: an argument to print help for
-                                                        Default: If no specific parameter is given the whole usage text is given
--jacoco-min-coverage, -jmc <big-decimal>                Minimum coverage in
-                                                        Jacoco that will generate a
-                                                        violation.
-                                                        <big-decimal>: an arbitrary decimal number (practically no limits)
-                                                        Default: 0.7
--jacoco-min-line-count, -jmlc <integer>                 Minimum line count in
-                                                        Jacoco that will generate a
-                                                        violation.
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 4
--max-line-column-width, -mlcw <integer>                 0 means no limit
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 0
--max-message-column-width, -mmcw <integer>              0 means no limit
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 50
--max-reporter-column-width, -mrcw <integer>             0 means no limit
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 0
--max-rule-column-width, -mrucw <integer>                0 means no limit
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 10
--max-severity-column-width, -mscw <integer>             0 means no limit
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 0
--max-violations, -mv <integer>                          Will fail the build if
-                                                        total number of found
-                                                        violations is higher.
-                                                        <integer>: -2,147,483,648 to 2,147,483,647
-                                                        Default: 2,147,483,647
--print-violations, -pv <boolean>                        Will print violations
-                                                        found
-                                                        <boolean>: true or false
-                                                        Default: true
--sarif, -ss <path>                                      Create a Sarif file
-                                                        with all the violations.
-                                                        <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
--severity, -s <SEVERITY>                                Minimum severity level
-                                                        to report.
-                                                        <SEVERITY>: {INFO | WARN | ERROR}
-                                                        Default: INFO
--show-debug-info                                        Please run your
-                                                        command with this parameter
-                                                        and supply output when
-                                                        reporting bugs.
-                                                        Default: disabled
--show-json-config                                       Will print the given
-                                                        config as JSON.
-                                                        Default: disabled
---violations, -v <string>                               The violations to look
-                                                        for. <PARSER> <FOLDER>
-                                                        <REGEXP PATTERN> <NAME> where
-                                                        PARSER is one of:
-                                                        ANDROIDLINT, CHECKSTYLE, CODENARC,
-                                                        CLANG, CPD, CPPCHECK,
-                                                        CPPLINT, CSSLINT, GENERIC,
-                                                        FINDBUGS, FLAKE8, FXCOP,
-                                                        GENDARME, IAR, JACOCO, JCREPORT,
-                                                        JSLINT, JUNIT, LINT, KLOCWORK,
-                                                        KOTLINMAVEN, KOTLINGRADLE, MSCPP,
-                                                        MSBULDLOG, MYPY, GOLINT,
-                                                        GOOGLEERRORPRONE, PERLCRITIC, PITEST,
-                                                        PMD, PROTOLINT, PYDOCSTYLE,
-                                                        PYLINT, RESHARPER,
-                                                        SARIFPARSER, SBTSCALAC, SIMIAN,
-                                                        SONAR, STYLECOP, XMLLINT,
-                                                        YAMLLINT, ZPTLINT, DOCFX,
-                                                        PCLINT, CODECLIMATE, XUNIT,
-                                                        VALGRIND
-                                                         Example: -v "JSHINT"
-                                                        "." ".*/jshint.xml$"
-                                                        "JSHint" [Supports Multiple occurrences]
-                                                        <string>: any string
-                                                        Default: Empty list
--violations-file, -vf <path>                            Create a JSON file
-                                                        with all the violations.
-                                                        <path>: a file path
-                                                        Default: /home/bjerre/workspace/violations/violations-command-line/.
+Available parsers are:
+ANDROIDLINT, ANSIBLELATER, CHECKSTYLE, CODENARC, CLANG, COVERITY, CPD, CPPCHECK, CPPLINT, CSSLINT, GENERIC, GHS, FINDBUGS, FLAKE8, MACHINE, FXCOP, GENDARME, IAR, JACOCO, JCREPORT, JSLINT, JUNIT, LINT, KLOCWORK, KOTLINMAVEN, KOTLINGRADLE, MSCPP, MSBULDLOG, MYPY, GOLINT, GOOGLEERRORPRONE, PERLCRITIC, PITEST, PMD, PROTOLINT, PYDOCSTYLE, PYLINT, RESHARPER, SARIF, SBTSCALAC, SEMGREP, SIMIAN, SONAR, STYLECOP, XMLLINT, YAMLLINT, ZPTLINT, DOCFX, PCLINT, CODECLIMATE, XUNIT, VALGRIND
+
+Usage: violations-command-line [-dpv] [--help] [-pv] [-show-debug-info]
+                               [-show-json-config] [-cc=<codeClimateFileArg>]
+                               [-cf=<configFileArg>] [-ddl=<diffDetailLevel>]
+                               [-df=<diffFrom>] [-dl=<detailLevelArg>]
+                               [-dmv=<diffMaxViolations>]
+                               [-ds=<diffMinSeverity>] [-dt=<diffTo>]
+                               [-gr=<gitRepoArg>] [-jmc=<jacocoMinCoverage>]
+                               [-jmlc=<jacocoMinLineCount>]
+                               [-mlcw=<maxLineColumnWidth>]
+                               [-mmcw=<maxMessageColumnWidth>]
+                               [-mrcw=<maxReporterColumnWidth>]
+                               [-mrucw=<maxRuleColumnWidth>]
+                               [-mscw=<maxSeverityColumnWidth>]
+                               [-mv=<maxViolationsArg>] [-s=<minSeverityArg>]
+                               [-ss=<sarifFileArg>] [-vf=<violationsFileArg>]
+                               [-v=<violationsArg>]...
+      -cc, -code-climate=<codeClimateFileArg>
+                          Create a CodeClimate file with all the violations.
+      -cf, -config-file=<configFileArg>
+                          Will read config from given file. Can also be
+                            configured with environment variable
+                            VIOLATIONS_CONFIG. Format is what you get from
+                            -show-json-config.
+      -ddl, -diff-detail-level=<diffDetailLevel>
+                          VERBOSE, COMPACT, PER_FILE_COMPACT
+      -df, -diff-from=<diffFrom>
+                          Can be empty (ignored), Git-commit or any
+                            Git-reference
+      -dl, -detail-level=<detailLevelArg>
+                          Verbosity VERBOSE, COMPACT, PER_FILE_COMPACT
+      -dmv, -diff-max-violations=<diffMaxViolations>
+                          Will fail the build if total number of found
+                            violations is higher
+      -dpv, -diff-print-violations
+                          Will print violations found in diff
+      -ds, -diff-severity=<diffMinSeverity>
+                          INFO, WARN, ERROR
+      -dt, -diff-to=<diffTo>
+                          Can be empty (ignored), Git-commit or any
+                            Git-reference
+      -gr, -git-repo=<gitRepoArg>
+                          Where to look for Git.
+      --help              display this help and exit
+      -jmc, -jacoco-min-coverage=<jacocoMinCoverage>
+                          Minimum coverage in Jacoco that will generate a
+                            violation.
+      -jmlc, -jacoco-min-line-count=<jacocoMinLineCount>
+                          Minimum line count in Jacoco that will generate a
+                            violation.
+      -mlcw, -max-line-column-width=<maxLineColumnWidth>
+                          0 means no limit
+      -mmcw, -max-message-column-width=<maxMessageColumnWidth>
+                          0 means no limit
+      -mrcw, -max-reporter-column-width=<maxReporterColumnWidth>
+                          0 means no limit
+      -mrucw, -max-rule-column-width=<maxRuleColumnWidth>
+                          0 means no limit
+      -mscw, -max-severity-column-width=<maxSeverityColumnWidth>
+                          0 means no limit
+      -mv, -max-violations=<maxViolationsArg>
+                          Will fail the build if total number of found
+                            violations is higher.
+      -pv, -print-violations
+                          Will print violations found
+  -s, -severity=<minSeverityArg>
+                          Minimum severity level to report. INFO, WARN, ERROR
+      -show-debug-info    Please run your command with this parameter and
+                            supply output when reporting bugs.
+      -show-json-config   Will print the given config as JSON.
+      -ss, -sarif=<sarifFileArg>
+                          Create a Sarif file with all the violations.
+  -v, --violations=<violationsArg>
+                          Format: <PARSER> <FOLDER> <REGEXP PATTERN> <NAME>,
+                            Example: -v "JSLINT" "." ".*/jshint.xml$" "JSHint"
+      -vf, -violations-file=<violationsFileArg>
+                          Create a JSON file with all the violations.
 ```
 
 Checkout the [Violations Lib](https://github.com/tomasbjerre/violations-lib) for more documentation.

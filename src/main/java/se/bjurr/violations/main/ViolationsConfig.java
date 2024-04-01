@@ -7,7 +7,7 @@ import se.bjurr.violations.lib.ViolationsLogger;
 import se.bjurr.violations.lib.model.SEVERITY;
 
 public class ViolationsConfig {
-  private List<List<String>> violations;
+  private List<ViolationConfig> violations;
   private SEVERITY minSeverity;
   private ViolationsReporterDetailLevel detailLevel;
   private Integer maxViolations;
@@ -15,7 +15,7 @@ public class ViolationsConfig {
   private String diffFrom;
   private String diffTo;
   private SEVERITY diffMinSeverity;
-  private File gitRepo;
+  private String gitRepo;
   private boolean diffPrintViolations;
   private Integer diffMaxViolations;
   private ViolationsReporterDetailLevel diffDetailLevel;
@@ -24,9 +24,9 @@ public class ViolationsConfig {
   private int maxSeverityColumnWidth;
   private int maxLineColumnWidth;
   private int maxMessageColumnWidth;
-  private File codeClimateFile;
-  private File sarifFile;
-  private File violationsFile;
+  private String codeClimateFile;
+  private String sarifFile;
+  private String violationsFile;
   private boolean showDebugInfo;
   private ViolationsLogger violationsLogger;
   private int jacocoMinLineCount;
@@ -34,11 +34,11 @@ public class ViolationsConfig {
 
   public ViolationsConfig() {}
 
-  public List<List<String>> getViolations() {
+  public List<ViolationConfig> getViolations() {
     return this.violations;
   }
 
-  public void setViolations(final List<List<String>> violations) {
+  public void setViolations(final List<ViolationConfig> violations) {
     this.violations = violations;
   }
 
@@ -98,12 +98,16 @@ public class ViolationsConfig {
     this.diffMinSeverity = diffMinSeverity;
   }
 
-  public File getGitRepo() {
+  public String getGitRepo() {
     return this.gitRepo;
   }
 
-  public void setGitRepo(final File gitRepo) {
+  public void setGitRepo(final String gitRepo) {
     this.gitRepo = gitRepo;
+  }
+
+  public void setGitRepo(final File gitRepo) {
+    this.gitRepo = this.setFileAsString(gitRepo);
   }
 
   public boolean isDiffPrintViolations() {
@@ -170,28 +174,40 @@ public class ViolationsConfig {
     this.maxMessageColumnWidth = maxMessageColumnWidth;
   }
 
-  public File getCodeClimateFile() {
+  public String getCodeClimateFile() {
     return this.codeClimateFile;
   }
 
-  public void setCodeClimateFile(final File codeClimateFile) {
+  public void setCodeClimateFile(final String codeClimateFile) {
     this.codeClimateFile = codeClimateFile;
   }
 
-  public void setSarifFile(final File file) {
+  public void setCodeClimateFile(final File codeClimateFile) {
+    this.codeClimateFile = this.setFileAsString(codeClimateFile);
+  }
+
+  public void setSarifFile(final String file) {
     this.sarifFile = file;
   }
 
-  public File getSarifFile() {
+  public void setSarifFile(final File file) {
+    this.sarifFile = this.setFileAsString(file);
+  }
+
+  public String getSarifFile() {
     return this.sarifFile;
   }
 
-  public File getViolationsFile() {
+  public String getViolationsFile() {
     return this.violationsFile;
   }
 
-  public void setViolationsFile(final File violationsFile) {
+  public void setViolationsFile(final String violationsFile) {
     this.violationsFile = violationsFile;
+  }
+
+  public void setViolationsFile(final File violationsFile) {
+    this.violationsFile = this.setFileAsString(violationsFile);
   }
 
   public boolean isShowDebugInfo() {
@@ -224,5 +240,65 @@ public class ViolationsConfig {
 
   public void setJacocoMinLineCount(final int jacocoMinLineCount) {
     this.jacocoMinLineCount = jacocoMinLineCount;
+  }
+
+  private String setFileAsString(final File from) {
+    if (from == null) {
+      return null;
+    }
+    return from.getAbsolutePath();
+  }
+
+  @Override
+  public String toString() {
+    return "ViolationsConfig [violations="
+        + this.violations
+        + ", minSeverity="
+        + this.minSeverity
+        + ", detailLevel="
+        + this.detailLevel
+        + ", maxViolations="
+        + this.maxViolations
+        + ", printViolations="
+        + this.printViolations
+        + ", diffFrom="
+        + this.diffFrom
+        + ", diffTo="
+        + this.diffTo
+        + ", diffMinSeverity="
+        + this.diffMinSeverity
+        + ", gitRepo="
+        + this.gitRepo
+        + ", diffPrintViolations="
+        + this.diffPrintViolations
+        + ", diffMaxViolations="
+        + this.diffMaxViolations
+        + ", diffDetailLevel="
+        + this.diffDetailLevel
+        + ", maxReporterColumnWidth="
+        + this.maxReporterColumnWidth
+        + ", maxRuleColumnWidth="
+        + this.maxRuleColumnWidth
+        + ", maxSeverityColumnWidth="
+        + this.maxSeverityColumnWidth
+        + ", maxLineColumnWidth="
+        + this.maxLineColumnWidth
+        + ", maxMessageColumnWidth="
+        + this.maxMessageColumnWidth
+        + ", codeClimateFile="
+        + this.codeClimateFile
+        + ", sarifFile="
+        + this.sarifFile
+        + ", violationsFile="
+        + this.violationsFile
+        + ", showDebugInfo="
+        + this.showDebugInfo
+        + ", violationsLogger="
+        + this.violationsLogger
+        + ", jacocoMinLineCount="
+        + this.jacocoMinLineCount
+        + ", jacocoMinCoverage="
+        + this.jacocoMinCoverage
+        + "]";
   }
 }
