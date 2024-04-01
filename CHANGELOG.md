@@ -2,6 +2,16 @@
 
 Changelog of violations-command-line.
 
+## 2.1.1 (2024-04-01)
+
+### Other changes
+
+**docs**
+
+
+[3cc41](https://github.com/tomasbjerre/violations-command-line/commit/3cc417edade4feb) Tomas Bjerre *2024-03-31 20:26:03*
+
+
 ## 2.1.0 (2024-03-24)
 
 ### Features
