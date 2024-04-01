@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 3.0.0 (2024-04-01)
+
+### Breaking changes
+
+-  migrate Jargo to Picocli to enable Graalvm ([459e3](https://github.com/tomasbjerre/violations-command-line/commit/459e3192a882de9) Tomas Bjerre)  
+
 ## 2.1.1 (2024-04-01)
 
 ### Other changes
