@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 3.0.1 (2024-04-02)
+
+### Bug Fixes
+
+-  avoid repeated message in the Coverity parser ([bbc9c](https://github.com/tomasbjerre/violations-command-line/commit/bbc9c1872298a2e) Tomas Bjerre)  
+
 ## 3.0.0 (2024-04-01)
 
 ### Breaking changes
