@@ -8,5 +8,4 @@ npx runnable-jar-to-docker@latest \
  --docker-password $dockerhub_token \
  --maven-group $group \
  --maven-artifact ${PWD##*/}  \
- --maven-version $(npx git-changelog-command-line --print-highest-version) \
- --compile-native
+ --maven-version $(npx git-changelog-command-line --print-highest-version)
