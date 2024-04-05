@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 3.0.2 (2024-04-05)
+
+### Bug Fixes
+
+-  reverting from native to jar in Docker image ([ba502](https://github.com/tomasbjerre/violations-command-line/commit/ba5029ff780b0a8) Tomas Bjerre)  [#10](https://github.com/tomasbjerre/violations-command-line/issues/10)  
+
 ## 3.0.1 (2024-04-02)
 
 ### Bug Fixes
