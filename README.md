@@ -107,22 +107,28 @@ name: My workflow
 on: [workflow_call, push, pull_request]
 
 jobs:
-  steps:
-    - name: Build
-      run: |
-        your-build-command-here
-    - name: Transorm static code analysis to SARIF
-      if: success() || failure()
-      run: |
-        npx violations-command-line -sarif sarif-report.json \
-        -v "FINDBUGS" "." ".*spotbugs/main\.xml$" "Spotbugs" \
-        -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
-        -v "PMD" "." ".*pmd/main\.xml$" "PMD" \
-        -v "JUNIT" "." ".*test/TEST-.*\.xml$" "JUNIT"
-    - uses: github/codeql-action/upload-sarif@v2
-      if: success() || failure()
-      with:
-        sarif_file: sarif-report.json
+  build:
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    steps:
+      - name: Build
+        run: |
+          your-build-command-here
+      - name: Transorm static code analysis to SARIF
+        if: success() || failure()
+        run: |
+          npx violations-command-line -sarif sarif-report.json \
+          -v "FINDBUGS" "." ".*spotbugs/main\.xml$" "Spotbugs" \
+          -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
+          -v "PMD" "." ".*pmd/main\.xml$" "PMD" \
+          -v "JUNIT" "." ".*test/TEST-.*\.xml$" "JUNIT"
+      - uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: sarif-report.json
+          category: violations-lib
 ```
 
 ## GitLab
