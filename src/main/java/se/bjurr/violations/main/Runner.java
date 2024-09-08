@@ -7,8 +7,6 @@ import static java.nio.file.StandardOpenOption.WRITE;
 import static se.bjurr.violations.git.ViolationsReporterApi.violationsReporterApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,6 +40,8 @@ import se.bjurr.violations.lib.parsers.JacocoParserSettings;
 import se.bjurr.violations.lib.parsers.ViolationsParser;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
+import se.bjurr.violations.violationslib.com.google.gson.Gson;
+import se.bjurr.violations.violationslib.com.google.gson.GsonBuilder;
 
 @Command(name = "violations-command-line")
 public class Runner implements Runnable {

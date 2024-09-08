@@ -22,13 +22,15 @@ project.ext.buildConfig = [
   ],
   manifest: [
     mainClass: 'se.bjurr.violations.main.Main'
-  ]
+  ],
+  sourceCompatibility: 11,
+  targetCompatibility: 11
 ]
 apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
 
 dependencies {
- api('se.bjurr.violations:violations-git-lib:2.1.1') {
+ api('se.bjurr.violations:violations-git-lib:2.2.0') {
    /**
     * Jackson contains class files with more recent java-version in ./META-INF/versions/19
     * This causes problems for Shadow when creating fat jar.
