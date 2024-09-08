@@ -2,6 +2,12 @@
 
 Changelog of violations-command-line.
 
+## 3.0.3 (2024-09-08)
+
+### Bug Fixes
+
+-  **sarif**  originalUriBaseIds lookup ([c063a](https://github.com/tomasbjerre/violations-command-line/commit/c063abf43cc9af4) Tomas Bjerre)  
+
 ## 3.0.2 (2024-04-05)
 
 ### Bug Fixes
