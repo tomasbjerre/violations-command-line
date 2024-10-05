@@ -1,51 +1,16 @@
-apply plugin: 'java-library'
-
-buildscript {
- repositories {
-  mavenCentral()
-  mavenLocal()
- }
- dependencies {
-  classpath 'se.bjurr.gradle:gradle-scripts:2.+'
- }
+plugins {
+	id "se.bjurr.gradle.conventional-release" version "0.+"
+	id "se.bjurr.gradle.java-convention" version "0.+"
+	id "se.bjurr.gradle.update-versions" version "0.+"
 }
-project.ext.buildConfig = [
-  repoType: "COMMAND",
-  publishing: [
-    relocate: [
-      "org:org",
-      "com:com"
-    ]
-  ],
-  violations: [
-    updateReadme: true
-  ],
-  manifest: [
-    mainClass: 'se.bjurr.violations.main.Main'
-  ],
-  sourceCompatibility: 11,
-  targetCompatibility: 11
-]
-apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
+shadowJar {
+	exclude 'META-INF/versions/21/**'
+}
 
 dependencies {
- api('se.bjurr.violations:violations-git-lib:2.2.0') {
-   /**
-    * Jackson contains class files with more recent java-version in ./META-INF/versions/19
-    * This causes problems for Shadow when creating fat jar.
-    *
-    * java.lang.IllegalArgumentException: Unsupported class file major version 61
-    *     at shadow.org.objectweb.asm.ClassReader.<init>(ClassReader.java:184)
-    */
-   exclude group: "com.fasterxml.jackson.core", module: "jackson-core"
-   exclude group: "com.fasterxml.jackson.core", module: "jackson-databind"
-   exclude group: "com.fasterxml.jackson.datatype", module: "jackson-datatype-jsr310"
- }
- implementation 'com.fasterxml.jackson.core:jackson-core:2.14.+'
- implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.+'
- implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.+'
- api 'info.picocli:picocli:4.7.5'
- api 'org.slf4j:slf4j-simple:2.0.6'
- testImplementation 'junit:junit:4.13.2'
+	api 'se.bjurr.violations:violations-git-lib:2.3.2'
+	api 'info.picocli:picocli:4.7.6'
+	api 'org.slf4j:slf4j-simple:2.0.16'
+	testImplementation 'junit:junit:4.13.2'
 }

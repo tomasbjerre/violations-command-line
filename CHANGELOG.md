@@ -1,6 +1,4 @@
-# violations-command-line changelog
 
-Changelog of violations-command-line.
 
 ## 3.0.3 (2024-09-08)
 

@@ -16,7 +16,7 @@ public class Main {
           Arrays.asList(Parser.values()).stream()
               .map((it) -> it.name())
               .collect(Collectors.joining(", "));
-      System.out.println("Available parsers are:\n" + parsers + "\n");
+      System.out.println("Available parsers are:\n" + parsers + "\n"); // NOPMD
     }
     System.exit(commandLine.execute(args));
   }

@@ -258,28 +258,28 @@ public class Runner implements Runnable {
       }
       this.violationsConfig.setShowDebugInfo(this.wasGiven(this.showDebugInfo));
       if (this.violationsConfig.isShowDebugInfo()) {
-        System.out.println("Parsed parameters:\n" + this.toString());
+        System.out.println("Parsed parameters:\n" + this.toString()); // NOPMD
       }
     }
 
     if (this.wasGiven(this.showJsonConfig)) {
       final Gson gson = new GsonBuilder().setPrettyPrinting().create();
       final String jsonString = gson.toJson(this.violationsConfig);
-      System.out.println(jsonString);
+      System.out.println(jsonString); // NOPMD
       return;
     }
     this.violationsConfig.setViolationsLogger(
         new ViolationsLogger() {
           @Override
           public void log(final Level level, final String string) {
-            System.out.println(level + " " + string);
+            System.out.println(level + " " + string); // NOPMD
           }
 
           @Override
           public void log(final Level level, final String string, final Throwable t) {
             final StringWriter sw = new StringWriter();
             t.printStackTrace(new PrintWriter(sw));
-            System.out.println(level + " " + string + "\n" + sw.toString());
+            System.out.println(level + " " + string + "\n" + sw.toString()); // NOPMD
           }
         });
     if (!this.violationsConfig.isShowDebugInfo()) {
@@ -359,7 +359,7 @@ public class Runner implements Runnable {
             .getReport(this.violationsConfig.getDetailLevel());
 
     if (tooManyViolations) {
-      System.err.println("\nViolations in repo\n\n" + report);
+      System.err.println("\nViolations in repo\n\n" + report); // NOPMD
       throw new TooManyViolationsException(
           "Too many violations found, max is "
               + this.violationsConfig.getMaxViolations()
@@ -367,7 +367,7 @@ public class Runner implements Runnable {
               + violations.size());
     } else {
       if (this.violationsConfig.isPrintViolations()) {
-        System.out.println("\nViolations in repo\n\n" + report);
+        System.out.println("\nViolations in repo\n\n" + report); // NOPMD
       }
     }
   }
@@ -390,7 +390,7 @@ public class Runner implements Runnable {
             .getReport(this.violationsConfig.getDiffDetailLevel());
 
     if (tooManyViolations) {
-      System.err.println("\nViolations in repo\n\n" + report);
+      System.err.println("\nViolations in repo\n\n" + report); // NOPMD
       throw new ScriptException(
           "Too many violations found in diff, max is "
               + this.violationsConfig.getMaxViolations()
@@ -398,7 +398,7 @@ public class Runner implements Runnable {
               + violations.size());
     } else {
       if (this.violationsConfig.isDiffPrintViolations()) {
-        System.out.println("\nViolations in diff\n\n" + report);
+        System.out.println("\nViolations in diff\n\n" + report); // NOPMD
       }
     }
   }

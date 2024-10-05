@@ -13,6 +13,11 @@ This is a command line tool that will find report files from static code analysi
   - Can used like `docker run --mount src="$(pwd)",target=/home/violations-command-line,type=bind tomasbjerre/violations-command-line:a.b.c -v "FINDBUGS" src/test/resources/findbugs/ ".*main\.xml$" "Spotbugs"`.
   - Or open a shell to have a look `docker run --rm -it --entrypoint sh tomasbjerre/violations-command-line:a.b.c`
 
+| Version           | Java Version |
+| ------------------| ------------ |
+| version < 2.0.0   | 8            |
+| 2.0.0 <= version  | 11           |
+
 Run it with:
 
 ```bash

@@ -11,7 +11,7 @@ public class PrintExceptionMessageHandler implements IExecutionExceptionHandler 
       final Exception ex, final CommandLine commandLine, final ParseResult parseResult)
       throws Exception {
     if (ex instanceof TooManyViolationsException) {
-      System.err.println(ex.getMessage());
+      System.err.println(ex.getMessage()); // NOPMD
     } else {
       ex.printStackTrace(System.err);
     }
