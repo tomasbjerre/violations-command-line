@@ -1,3 +1,9 @@
+## 3.1.0 (2024-10-05)
+
+### Features
+
+-  new build script and dependencies ([bcd01](https://github.com/tomasbjerre/violations-command-line/commit/bcd0177e0938577) Tomas Bjerre)  
+
 
 
 ## 3.0.3 (2024-09-08)
