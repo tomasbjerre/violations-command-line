@@ -1,3 +1,8 @@
+## 3.1.1 (2025-07-14)
+
+### Dependency updates
+
+- violations-git-lib:2.3.2 -> 2.3.6 ([4d09e](https://github.com/tomasbjerre/violations-command-line/commit/4d09e5e4655f8b0) Tomas Bjerre)  
 ## 3.1.0 (2024-10-05)
 
 ### Features
