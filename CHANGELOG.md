@@ -1,3 +1,9 @@
+## 3.1.3 (2025-08-13)
+
+### Bug Fixes
+
+-  faulty release ([985cd](https://github.com/tomasbjerre/violations-command-line/commit/985cd44b73acbbc) Tomas Bjerre)  
+
 ## 3.1.2 (2025-08-13)
 
 ### Dependency updates
