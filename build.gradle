@@ -9,8 +9,8 @@ shadowJar {
 }
 
 dependencies {
-	api 'se.bjurr.violations:violations-git-lib:2.3.2'
-	api 'info.picocli:picocli:4.7.6'
-	api 'org.slf4j:slf4j-simple:2.0.16'
+	api 'se.bjurr.violations:violations-git-lib:2.3.8'
+	api 'info.picocli:picocli:4.7.7'
+	api 'org.slf4j:slf4j-simple:2.0.17'
 	testImplementation 'junit:junit:4.13.2'
 }
