@@ -1,3 +1,8 @@
+## 3.1.2 (2025-08-13)
+
+### Dependency updates
+
+- dependencies ([9f833](https://github.com/tomasbjerre/violations-command-line/commit/9f833bea074b22c) Tomas Bjerre)  
 ## 3.1.1 (2025-07-14)
 
 ### Dependency updates
