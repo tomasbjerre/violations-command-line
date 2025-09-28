@@ -1,3 +1,9 @@
+## 3.2.0 (2025-09-28)
+
+### Features
+
+-  PMDCPD 7 ([e2beb](https://github.com/tomasbjerre/violations-command-line/commit/e2beb4aa75c27a2) Tomas Bjerre)  
+
 ## 3.1.3 (2025-08-13)
 
 ### Bug Fixes
