@@ -16,7 +16,8 @@ This is a command line tool that will find report files from static code analysi
 | Version           | Java Version |
 | ------------------| ------------ |
 | version < 2.0.0   | 8            |
-| 2.0.0 <= version  | 11           |
+| 2.0.0 - 3.2.1     | 11           |
+| 3.2.2 <= version  | 17           |
 
 Run it with:
 
