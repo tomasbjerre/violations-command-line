@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-	api "se.bjurr.violations:violations-git-lib:2.5.0"
+	api "se.bjurr.violations:violations-git-lib:2.5.1"
 	api 'info.picocli:picocli:4.7.7'
 	api 'org.slf4j:slf4j-simple:2.0.17'
 	testImplementation 'junit:junit:4.13.2'
