@@ -1,3 +1,9 @@
+## 3.2.1 (2025-10-05)
+
+### Bug Fixes
+
+-  docfx message_severity ([cd564](https://github.com/tomasbjerre/violations-command-line/commit/cd564da43487581) Tomas Bjerre)  
+
 ## 3.2.0 (2025-09-28)
 
 ### Features
