@@ -1,3 +1,9 @@
+## 4.0.2 (2025-10-07)
+
+### Bug Fixes
+
+-  trying to fix faulty release ([1f0fa](https://github.com/tomasbjerre/violations-command-line/commit/1f0fa45fa5d1883) Tomas Bjerre)  
+
 ## 4.0.1 (2025-10-07)
 
 ### Bug Fixes
