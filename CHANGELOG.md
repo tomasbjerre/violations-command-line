@@ -1,3 +1,9 @@
+## 4.0.1 (2025-10-07)
+
+### Bug Fixes
+
+-  trigger version ([abb98](https://github.com/tomasbjerre/violations-command-line/commit/abb9836758f6212) Tomas Bjerre)  
+
 ## 4.0.0 (2025-10-07)
 
 ### Breaking changes
