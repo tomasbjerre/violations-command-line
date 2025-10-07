@@ -1,3 +1,16 @@
+## 4.0.0 (2025-10-07)
+
+### Breaking changes
+
+-  node 22 support ([f9005](https://github.com/tomasbjerre/violations-command-line/commit/f90051a9c601c22) Tomas Bjerre)  
+
+### Features
+
+-  node 22 support ([f9005](https://github.com/tomasbjerre/violations-command-line/commit/f90051a9c601c22) Tomas Bjerre)  
+
+### Dependency updates
+
+- gradle 9 ([4c256](https://github.com/tomasbjerre/violations-command-line/commit/4c25609b5078e55) Tomas Bjerre)  
 ## Unreleased ()
 
 ## 3.2.1 (2025-10-05)
