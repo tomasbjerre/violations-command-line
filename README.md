@@ -158,6 +158,24 @@ scanner-result-import:
       codequality: code-climate-report.json
 ```
 
+Or create the `code-climate-report.json` with:
+
+```sh
+npx violations-command-line \
+  -cc code-climate-report.json \
+  -v "PMD" "." ".*pmd/main\.xml$" "PMD"
+```
+
+And upload that with:
+
+```yml
+  artifacts:
+    paths:
+      - code-climate-report.json
+    reports:
+      codequality: code-climate-report.json
+```
+
 ## Formats
 
 
