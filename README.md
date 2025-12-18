@@ -141,19 +141,16 @@ jobs:
 
 GitLab is supported via `CodeClimate`. This tool can export `CodeClimate` format and it can be uploaded to GitLab to get feedback in pull-requests.
 
-If you export `CodeClimate` like this:
-
-```sh
-npx violations-command-line -cc code-climate-report.json \
-  -v "FINDBUGS" "." ".*spotbugs/main\.xml$" "Spotbugs" \
-  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle" \
-  -v "PMD" "." ".*pmd/main\.xml$" "PMD" \
-  -v "JUNIT" "." ".*test/TEST-.*\.xml$" "JUNIT"
-```
-
-You can upload it like this:
+You can export `CodeClimate` and collect as code quality report like this:
 
 ```yml
+scanner-result-import:
+  image: 
+    name: tomasbjerre/violations-command-line:4.0.2
+    entrypoint: [""] 
+  stage: test
+  script:
+    - violations-command-line -cc code-climate-report.json -v "PMD" "." ".*pmd.xml$" "PMD"
   artifacts:
     paths:
       - code-climate-report.json
