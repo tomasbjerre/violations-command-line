@@ -7,6 +7,15 @@
 ### Other changes
 
 
+## 4.0.3 (2026-09-13)
+
+### Bug Fixes
+
+-  resolve static analysis violations ([0b1b1](https://github.com/tomasbjerre/violations-command-line/commit/0b1b10e0c30c96a) Tomas Bjerre)  
+
+### Other changes
+
+
 ## 4.0.2 (2025-10-07)
 
 ### Bug Fixes
