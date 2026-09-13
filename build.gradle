@@ -1,9 +1,9 @@
 plugins {
-	id "se.bjurr.gradle.bundle-command-shadow" version "2.1.2"
+	id "se.bjurr.gradle.bundle-command-shadow" version "2.2.0"
 }
 
 dependencies {
-	api "se.bjurr.violations:violations-git-lib-transitives:2.5.9"
+	api "se.bjurr.violations:violations-git-lib-transitives:2.6.0"
 	api 'info.picocli:picocli:4.7.7'
 	api "org.slf4j:slf4j-simple:2.0.19"
 	api "tools.jackson.core:jackson-databind:3.2.2"
