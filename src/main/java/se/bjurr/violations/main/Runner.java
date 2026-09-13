@@ -7,6 +7,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
 import static se.bjurr.violations.git.ViolationsReporterApi.violationsReporterApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +50,10 @@ public class Runner implements Runnable {
   private static final String SHOW_JSON_CONFIG = "-show-json-config";
   private static final String VIOLATIONS_CONFIG = "VIOLATIONS_CONFIG";
   private static final JsonMapper JSON_MAPPER =
-      JsonMapper.builder().enable(SerializationFeature.INDENT_OUTPUT).build();
+      JsonMapper.builder()
+          .enable(SerializationFeature.INDENT_OUTPUT)
+          .changeDefaultPropertyInclusion(incl -> JsonInclude.Value.ALL_NON_NULL)
+          .build();
 
   @Option(
       names = {"-v", "--violations"},
