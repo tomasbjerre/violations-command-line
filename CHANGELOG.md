@@ -1,3 +1,37 @@
+## 4.0.4 (2026-09-13)
+
+### Other changes
+
+**Use PAT for release checkout so pushed commits trigger CI**
+
+* The default GITHUB_TOKEN doesn&#x27;t trigger other workflows, so commits and 
+* tags pushed by this release workflow wouldn&#x27;t kick off gradle-ci.yaml. 
+* Co-Authored-By: Claude Sonnet 5 &lt;noreply@anthropic.com&gt; 
+* Claude-Session: https://claude.ai/code/session_01Bp1ZoD1dpf9CPVqU9pQk9s 
+
+[2e80d](https://github.com/tomasbjerre/violations-command-line/commit/2e80d403a99ef69) Tomas Bjerre *2026-09-13 09:11:31*
+
+**Fix invalid SARIF output rejected by GitHub upload-sarif**
+
+* JSON_MAPPER serialized unset optional fields (driver.guid, organization, 
+* columnKind, etc.) as explicit null, which GitHub&#x27;s SARIF schema validator 
+* rejects since those fields must be a valid value or absent, never null. 
+* Exclude null properties from serialization so they&#x27;re omitted instead. 
+* Co-Authored-By: Claude Sonnet 5 &lt;noreply@anthropic.com&gt; 
+* Claude-Session: https://claude.ai/code/session_01Bp1ZoD1dpf9CPVqU9pQk9s 
+
+[731e1](https://github.com/tomasbjerre/violations-command-line/commit/731e180d16ba4e4) Tomas Bjerre *2026-09-13 09:11:02*
+
+**Fix broken Maven Central badge in README**
+
+* maven-badges.herokuapp.com is down; switch to img.shields.io badge 
+* linking to search.maven.org. 
+* Co-Authored-By: Claude Sonnet 5 &lt;noreply@anthropic.com&gt; 
+* Claude-Session: https://claude.ai/code/session_011PGVf85V1VhJj4oM3rKh7b 
+
+[fae05](https://github.com/tomasbjerre/violations-command-line/commit/fae054ebadd59e6) Tomas Bjerre *2026-09-13 08:54:54*
+
+
 ## 4.0.3 (2026-09-13)
 
 ### Bug Fixes
