@@ -1,3 +1,12 @@
+## 4.0.5 (2026-09-13)
+
+### Dependency updates
+
+- update dependencies ([79274](https://github.com/tomasbjerre/violations-command-line/commit/7927426f91ce54c) Tomas Bjerre)  
+- update gradle-conventions to 2.1.2, pin junit-platform-launcher, bump Gradle to 9.7.1 ([f0273](https://github.com/tomasbjerre/violations-command-line/commit/f0273ff5b9691c9) Tomas Bjerre)  
+### Other changes
+
+
 ## 4.0.4 (2026-09-13)
 
 ### Other changes
