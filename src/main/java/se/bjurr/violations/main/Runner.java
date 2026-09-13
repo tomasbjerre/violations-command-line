@@ -7,6 +7,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
 import static se.bjurr.violations.git.ViolationsReporterApi.violationsReporterApi;
 import static se.bjurr.violations.lib.ViolationsApi.violationsApi;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,7 +56,7 @@ public class Runner implements Runnable {
           "Format: <PARSER> <FOLDER> <REGEXP PATTERN> <NAME>, Example: -v \"JSLINT\" \".\" \".*/jshint.xml$\" \"JSHint\"",
       parameterConsumer = ViolationConfigConverter.class,
       arity = "3..4")
-  List<ViolationConfig> violationsArg = new ArrayList<ViolationConfig>();
+  List<ViolationConfig> violationsArg = new ArrayList<>();
 
   @Option(
       defaultValue = "INFO",
@@ -276,6 +277,11 @@ public class Runner implements Runnable {
           }
 
           @Override
+          @SuppressFBWarnings(
+              value = "INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE",
+              justification =
+                  "This is a command line tool, the stack trace is meant to be seen by the user"
+                      + " running it, not exposed to a remote party.")
           public void log(final Level level, final String string, final Throwable t) {
             final StringWriter sw = new StringWriter();
             t.printStackTrace(new PrintWriter(sw));
@@ -428,11 +434,7 @@ public class Runner implements Runnable {
   }
 
   private Set<Violation> getAllParsedViolations(final ViolationConfig configuredViolation) {
-    final String reporter =
-        Optional.ofNullable(configuredViolation.getName())
-            .orElse(configuredViolation.getParser().name());
-
-    ViolationsParser parser = null;
+    ViolationsParser parser;
     try {
       final String parserName = configuredViolation.getParser().name();
       if (parserName.equals(Parser.JACOCO.name())) {
@@ -450,6 +452,9 @@ public class Runner implements Runnable {
               .collect(Collectors.joining("\n")),
           e);
     }
+    final String reporter =
+        Optional.ofNullable(configuredViolation.getName())
+            .orElse(configuredViolation.getParser().name());
     final Set<Violation> parsedViolations =
         violationsApi() //
             .withViolationsLogger(this.violationsConfig.getViolationsLogger()) //
