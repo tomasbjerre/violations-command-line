@@ -41,13 +41,15 @@ import se.bjurr.violations.lib.parsers.JacocoParserSettings;
 import se.bjurr.violations.lib.parsers.ViolationsParser;
 import se.bjurr.violations.lib.reports.Parser;
 import se.bjurr.violations.lib.util.Filtering;
-import se.bjurr.violations.violationslib.com.google.gson.Gson;
-import se.bjurr.violations.violationslib.com.google.gson.GsonBuilder;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 @Command(name = "violations-command-line")
 public class Runner implements Runnable {
   private static final String SHOW_JSON_CONFIG = "-show-json-config";
   private static final String VIOLATIONS_CONFIG = "VIOLATIONS_CONFIG";
+  private static final JsonMapper JSON_MAPPER =
+      JsonMapper.builder().enable(SerializationFeature.INDENT_OUTPUT).build();
 
   @Option(
       names = {"-v", "--violations"},
@@ -226,7 +228,7 @@ public class Runner implements Runnable {
       } catch (final IOException e) {
         throw new RuntimeException(jsonFile.toString(), e);
       }
-      this.violationsConfig = new Gson().fromJson(json, ViolationsConfig.class);
+      this.violationsConfig = JSON_MAPPER.readValue(json, ViolationsConfig.class);
     } else {
       this.violationsConfig.setViolations(this.violationsArg);
       this.violationsConfig.setMinSeverity(this.minSeverityArg);
@@ -264,8 +266,7 @@ public class Runner implements Runnable {
     }
 
     if (this.wasGiven(this.showJsonConfig)) {
-      final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      final String jsonString = gson.toJson(this.violationsConfig);
+      final String jsonString = JSON_MAPPER.writeValueAsString(this.violationsConfig);
       System.out.println(jsonString); // NOPMD
       return;
     }
@@ -339,7 +340,7 @@ public class Runner implements Runnable {
   }
 
   private void createJsonFile(final Object object, final String file) throws IOException {
-    final String codeClimateReport = new GsonBuilder().setPrettyPrinting().create().toJson(object);
+    final String codeClimateReport = JSON_MAPPER.writeValueAsString(object);
     Files.write(
         Paths.get(file),
         codeClimateReport.getBytes(StandardCharsets.UTF_8),

@@ -1,5 +1,7 @@
 package se.bjurr.violations.main;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.bjurr.violations.lib.reports.Parser;
 
 public class ViolationConfig {
@@ -9,8 +11,12 @@ public class ViolationConfig {
   private final String regexp;
   private final String name;
 
+  @JsonCreator
   public ViolationConfig(
-      final Parser parser, final String folder, final String regexp, final String name) {
+      @JsonProperty("parser") final Parser parser,
+      @JsonProperty("folder") final String folder,
+      @JsonProperty("regexp") final String regexp,
+      @JsonProperty("name") final String name) {
     this.parser = parser;
     this.folder = folder;
     this.regexp = regexp;
