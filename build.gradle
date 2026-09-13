@@ -6,11 +6,16 @@ dependencies {
 	api "se.bjurr.violations:violations-git-lib-transitives:2.5.3"
 	api 'info.picocli:picocli:4.7.7'
 	api 'org.slf4j:slf4j-simple:2.0.17'
-	testImplementation 'junit:junit:4.13.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 shadowJar {
 	exclude 'META-INF/versions/21/**'
+}
+
+test {
+	useJUnitPlatform()
 }
 
 shadowExtension {
