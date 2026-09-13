@@ -19,7 +19,7 @@ shadowExtension {
 }
 
 staticCodeAnalysisExtension {
-	maxViolations.set(6)
+	maxViolations.set(0)
 }
 
 javaExtension {
