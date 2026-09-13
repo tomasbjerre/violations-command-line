@@ -1,5 +1,5 @@
 plugins {
-	id "se.bjurr.gradle.bundle-command-shadow" version "2.1.1"
+	id "se.bjurr.gradle.bundle-command-shadow" version "2.1.2"
 }
 
 dependencies {
@@ -9,7 +9,7 @@ dependencies {
 	api "tools.jackson.core:jackson-databind:3.2.2"
 	compileOnly "com.github.spotbugs:spotbugs-annotations:4.10.4"
 	testImplementation "org.junit.jupiter:junit-jupiter:6.1.3"
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher:6.1.3"
 }
 
 shadowJar {
