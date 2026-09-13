@@ -47,7 +47,7 @@ npx violations-command-line -cc code-climate-report.json \
 - Export to Sarif JSON.
 
 ```bash
-npx violations-command-line -sa sarif-report.json \
+npx violations-command-line -sarif sarif-report.json \
  -v "CHECKSTYLE" "." ".*checkstyle/main\.xml$" "Checkstyle"
 ```
 
