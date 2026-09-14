@@ -1,7 +1,7 @@
 # Violations Command Line
 
-[![Maven Central](https://img.shields.io/maven-central/v/se.bjurr.violations/violations-command-line.svg?label=Maven%20Central)](https://search.maven.org/artifact/se.bjurr.violations/violations-command-line)
-[![NPM](https://img.shields.io/npm/v/violations-command-line.svg?style=flat-square) ](https://www.npmjs.com/package/violations-command-line)
+[![Maven Central](https://img.shields.io/maven-central/v/se.bjurr.violations/violations-command-line.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/se.bjurr.violations/violations-command-line)
+[![NPM](https://img.shields.io/npm/v/violations-command-line.svg?style=flat-square)](https://www.npmjs.com/package/violations-command-line)
 [![NPM Downloads](https://img.shields.io/npm/dm/violations-command-line.svg?style=flat)](https://www.npmjs.com/package/violations-command-line)
 [![Docker Pulls](https://badgen.net/docker/pulls/tomasbjerre/violations-command-line?icon=docker&label=pulls)](https://hub.docker.com/r/tomasbjerre/violations-command-line/)
 
