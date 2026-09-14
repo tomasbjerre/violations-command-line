@@ -1,3 +1,39 @@
+## 4.0.6 (2026-09-14)
+
+### Bug Fixes
+
+-  **deps**  update dependency se.bjurr.violations:violations-git-lib-transitives to v2.7.0 (#12) ([a9599](https://github.com/tomasbjerre/violations-command-line/commit/a95994aae4d3824) renovate[bot])  
+-  point release workflow to renamed shared workflow ([dee21](https://github.com/tomasbjerre/violations-command-line/commit/dee217b6eba5942) Tomas Bjerre)  
+-  using SIGNING_PASSWORD to replace signing.password that does not work in Github actions ([e4b30](https://github.com/tomasbjerre/violations-command-line/commit/e4b307cf2f91a62) Tomas Bjerre)  
+
+### Other changes
+
+**Add missing draft-release workflow so releases get drafted like sibling repos**
+
+
+[fa24d](https://github.com/tomasbjerre/violations-command-line/commit/fa24defe3043c63) Tomas Bjerre *2026-09-14 20:03:01*
+
+**Superseded by centralized publish-draft-releases.yaml in .github**
+
+
+[94f4b](https://github.com/tomasbjerre/violations-command-line/commit/94f4b7e9f160ae1) Tomas Bjerre *2026-09-14 19:58:33*
+
+**Auto-publish pending draft releases weekly**
+
+
+[1b83b](https://github.com/tomasbjerre/violations-command-line/commit/1b83beb5612ad21) Tomas Bjerre *2026-09-14 19:47:34*
+
+**Use shared reusable release workflow**
+
+* Replace the repo-local release.yaml body with a call to 
+* tomasbjerre/.github&#x27;s gradle-npm-maven-docker-release.yaml reusable 
+* workflow, so the release steps are maintained in one place. 
+* Co-Authored-By: Claude Sonnet 5 &lt;noreply@anthropic.com&gt; 
+* Claude-Session: https://claude.ai/code/session_017K9KgD31eJFz7wu9b2C7XE 
+
+[7f309](https://github.com/tomasbjerre/violations-command-line/commit/7f309adbb984601) Tomas Bjerre *2026-09-14 11:25:54*
+
+
 ## 4.0.5 (2026-09-13)
 
 ### Dependency updates
