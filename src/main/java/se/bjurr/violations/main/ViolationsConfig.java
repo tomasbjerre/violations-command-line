@@ -26,6 +26,7 @@ public class ViolationsConfig {
   private int maxMessageColumnWidth;
   private String codeClimateFile;
   private String sarifFile;
+  private String diffSarifFile;
   private String violationsFile;
   private String diffCodeClimateFile;
   private String diffViolationsFile;
@@ -200,6 +201,18 @@ public class ViolationsConfig {
     return this.sarifFile;
   }
 
+  public void setDiffSarifFile(final String file) {
+    this.diffSarifFile = file;
+  }
+
+  public void setDiffSarifFile(final File file) {
+    this.diffSarifFile = this.setFileAsString(file);
+  }
+
+  public String getDiffSarifFile() {
+    return this.diffSarifFile;
+  }
+
   public String getViolationsFile() {
     return this.violationsFile;
   }
@@ -315,6 +328,8 @@ public class ViolationsConfig {
         + this.codeClimateFile
         + ", sarifFile="
         + this.sarifFile
+        + ", diffSarifFile="
+        + this.diffSarifFile
         + ", violationsFile="
         + this.violationsFile
         + ", diffCodeClimateFile="

@@ -81,6 +81,11 @@ public class Runner implements Runnable {
   File sarifFileArg;
 
   @Option(
+      names = {"-diff-sarif", "-dss"},
+      description = "Create a Sarif file with only the violations found in the diff.")
+  File diffSarifFileArg;
+
+  @Option(
       names = {"-violations-file", "-vf"},
       description = "Create a JSON file with all the violations.")
   File violationsFileArg;
@@ -270,6 +275,9 @@ public class Runner implements Runnable {
       if (this.wasGiven(this.sarifFileArg)) {
         this.violationsConfig.setSarifFile(this.sarifFileArg);
       }
+      if (this.wasGiven(this.diffSarifFileArg)) {
+        this.violationsConfig.setDiffSarifFile(this.diffSarifFileArg);
+      }
       if (this.wasGiven(this.violationsFileArg)) {
         this.violationsConfig.setViolationsFile(this.violationsFileArg);
       }
@@ -351,6 +359,11 @@ public class Runner implements Runnable {
       this.createJsonFile(
           SarifTransformer.fromViolations(allParsedViolations),
           this.violationsConfig.getSarifFile());
+    }
+    if (this.violationsConfig.getDiffSarifFile() != null) {
+      this.createJsonFile(
+          SarifTransformer.fromViolations(allParsedViolationsInDiff),
+          this.violationsConfig.getDiffSarifFile());
     }
     if (this.violationsConfig.getViolationsFile() != null) {
       this.createJsonFile(allParsedViolations, this.violationsConfig.getViolationsFile());

@@ -282,7 +282,8 @@ Usage: violations-command-line [-dpv] [--help] [-pv] [-show-debug-info]
                                [-ddl=<diffDetailLevel>] [-df=<diffFrom>]
                                [-dl=<detailLevelArg>]
                                [-dmv=<diffMaxViolations>]
-                               [-ds=<diffMinSeverity>] [-dt=<diffTo>]
+                               [-ds=<diffMinSeverity>]
+                               [-dss=<diffSarifFileArg>] [-dt=<diffTo>]
                                [-dvf=<diffViolationsFileArg>]
                                [-gr=<gitRepoArg>] [-jmc=<jacocoMinCoverage>]
                                [-jmlc=<jacocoMinLineCount>]
@@ -318,6 +319,9 @@ Usage: violations-command-line [-dpv] [--help] [-pv] [-show-debug-info]
                           Will print violations found in diff
       -ds, -diff-severity=<diffMinSeverity>
                           INFO, WARN, ERROR
+      -dss, -diff-sarif=<diffSarifFileArg>
+                          Create a Sarif file with only the violations found in
+                            the diff.
       -dt, -diff-to=<diffTo>
                           Can be empty (ignored), Git-commit or any
                             Git-reference
