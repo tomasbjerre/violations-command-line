@@ -27,6 +27,8 @@ public class ViolationsConfig {
   private String codeClimateFile;
   private String sarifFile;
   private String violationsFile;
+  private String diffCodeClimateFile;
+  private String diffViolationsFile;
   private boolean showDebugInfo;
   private ViolationsLogger violationsLogger;
   private int jacocoMinLineCount;
@@ -210,6 +212,30 @@ public class ViolationsConfig {
     this.violationsFile = this.setFileAsString(violationsFile);
   }
 
+  public String getDiffCodeClimateFile() {
+    return this.diffCodeClimateFile;
+  }
+
+  public void setDiffCodeClimateFile(final String diffCodeClimateFile) {
+    this.diffCodeClimateFile = diffCodeClimateFile;
+  }
+
+  public void setDiffCodeClimateFile(final File diffCodeClimateFile) {
+    this.diffCodeClimateFile = this.setFileAsString(diffCodeClimateFile);
+  }
+
+  public String getDiffViolationsFile() {
+    return this.diffViolationsFile;
+  }
+
+  public void setDiffViolationsFile(final String diffViolationsFile) {
+    this.diffViolationsFile = diffViolationsFile;
+  }
+
+  public void setDiffViolationsFile(final File diffViolationsFile) {
+    this.diffViolationsFile = this.setFileAsString(diffViolationsFile);
+  }
+
   public boolean isShowDebugInfo() {
     return this.showDebugInfo;
   }
@@ -291,6 +317,10 @@ public class ViolationsConfig {
         + this.sarifFile
         + ", violationsFile="
         + this.violationsFile
+        + ", diffCodeClimateFile="
+        + this.diffCodeClimateFile
+        + ", diffViolationsFile="
+        + this.diffViolationsFile
         + ", showDebugInfo="
         + this.showDebugInfo
         + ", violationsLogger="

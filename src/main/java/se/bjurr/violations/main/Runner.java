@@ -86,6 +86,16 @@ public class Runner implements Runnable {
   File violationsFileArg;
 
   @Option(
+      names = {"-diff-code-climate", "-dcc"},
+      description = "Create a CodeClimate file with only the violations found in the diff.")
+  File diffCodeClimateFileArg;
+
+  @Option(
+      names = {"-diff-violations-file", "-dvf"},
+      description = "Create a JSON file with only the violations found in the diff.")
+  File diffViolationsFileArg;
+
+  @Option(
       defaultValue = Integer.MAX_VALUE + "",
       names = {"-max-violations", "-mv"},
       description = "Will fail the build if total number of found violations is higher.")
@@ -263,6 +273,12 @@ public class Runner implements Runnable {
       if (this.wasGiven(this.violationsFileArg)) {
         this.violationsConfig.setViolationsFile(this.violationsFileArg);
       }
+      if (this.wasGiven(this.diffCodeClimateFileArg)) {
+        this.violationsConfig.setDiffCodeClimateFile(this.diffCodeClimateFileArg);
+      }
+      if (this.wasGiven(this.diffViolationsFileArg)) {
+        this.violationsConfig.setDiffViolationsFile(this.diffViolationsFileArg);
+      }
       this.violationsConfig.setShowDebugInfo(this.wasGiven(this.showDebugInfo));
       if (this.violationsConfig.isShowDebugInfo()) {
         System.out.println("Parsed parameters:\n" + this.toString()); // NOPMD
@@ -338,6 +354,14 @@ public class Runner implements Runnable {
     }
     if (this.violationsConfig.getViolationsFile() != null) {
       this.createJsonFile(allParsedViolations, this.violationsConfig.getViolationsFile());
+    }
+    if (this.violationsConfig.getDiffCodeClimateFile() != null) {
+      this.createJsonFile(
+          CodeClimateTransformer.fromViolations(allParsedViolationsInDiff),
+          this.violationsConfig.getDiffCodeClimateFile());
+    }
+    if (this.violationsConfig.getDiffViolationsFile() != null) {
+      this.createJsonFile(allParsedViolationsInDiff, this.violationsConfig.getDiffViolationsFile());
     }
     this.checkGlobalViolations(allParsedViolations);
     this.checkDiffViolations(allParsedViolationsInDiff);
