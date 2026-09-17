@@ -277,10 +277,13 @@ ANDROIDLINT, ANSIBLELATER, CHECKSTYLE, CODENARC, CLANG, COVERITY, CPD, CPPCHECK,
 
 Usage: violations-command-line [-dpv] [--help] [-pv] [-show-debug-info]
                                [-show-json-config] [-cc=<codeClimateFileArg>]
-                               [-cf=<configFileArg>] [-ddl=<diffDetailLevel>]
-                               [-df=<diffFrom>] [-dl=<detailLevelArg>]
+                               [-cf=<configFileArg>]
+                               [-dcc=<diffCodeClimateFileArg>]
+                               [-ddl=<diffDetailLevel>] [-df=<diffFrom>]
+                               [-dl=<detailLevelArg>]
                                [-dmv=<diffMaxViolations>]
                                [-ds=<diffMinSeverity>] [-dt=<diffTo>]
+                               [-dvf=<diffViolationsFileArg>]
                                [-gr=<gitRepoArg>] [-jmc=<jacocoMinCoverage>]
                                [-jmlc=<jacocoMinLineCount>]
                                [-mlcw=<maxLineColumnWidth>]
@@ -298,6 +301,9 @@ Usage: violations-command-line [-dpv] [--help] [-pv] [-show-debug-info]
                             configured with environment variable
                             VIOLATIONS_CONFIG. Format is what you get from
                             -show-json-config.
+      -dcc, -diff-code-climate=<diffCodeClimateFileArg>
+                          Create a CodeClimate file with only the violations
+                            found in the diff.
       -ddl, -diff-detail-level=<diffDetailLevel>
                           VERBOSE, COMPACT, PER_FILE_COMPACT
       -df, -diff-from=<diffFrom>
@@ -315,6 +321,9 @@ Usage: violations-command-line [-dpv] [--help] [-pv] [-show-debug-info]
       -dt, -diff-to=<diffTo>
                           Can be empty (ignored), Git-commit or any
                             Git-reference
+      -dvf, -diff-violations-file=<diffViolationsFileArg>
+                          Create a JSON file with only the violations found in
+                            the diff.
       -gr, -git-repo=<gitRepoArg>
                           Where to look for Git.
       --help              display this help and exit
