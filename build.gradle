@@ -5,7 +5,7 @@ plugins {
 dependencies {
 	api "se.bjurr.violations:violations-git-lib-transitives:2.7.1"
 	api 'info.picocli:picocli:4.7.7'
-	api "org.slf4j:slf4j-simple:2.0.19"
+	api "org.slf4j:slf4j-simple:2.0.20"
 	api "tools.jackson.core:jackson-databind:3.2.3"
 	compileOnly "com.github.spotbugs:spotbugs-annotations:4.10.4"
 	testImplementation "org.junit.jupiter:junit-jupiter:6.1.3"
