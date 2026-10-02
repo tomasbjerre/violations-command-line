@@ -14,7 +14,7 @@ public class Main {
     if (commandLine.isUsageHelpRequested()) {
       final String parsers =
           Arrays.asList(Parser.values()).stream()
-              .map((it) -> it.name())
+              .map(Parser::name)
               .collect(Collectors.joining(", "));
       System.out.println("Available parsers are:\n" + parsers + "\n"); // NOPMD
     }
