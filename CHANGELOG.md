@@ -1,3 +1,9 @@
+## 4.1.1 (2026-10-02)
+
+### Dependency updates
+
+- update plugin se.bjurr.gradle.bundle-command-shadow to v2.4.3 (#22) ([b715c](https://github.com/tomasbjerre/violations-command-line/commit/b715c5d19c0c5b9) renovate[bot])  
+- update plugin se.bjurr.gradle.bundle-command-shadow to v2.4.1 (#21) ([f7176](https://github.com/tomasbjerre/violations-command-line/commit/f7176f19e1dcd28) renovate[bot])  
 ## 4.0.8 (2026-09-14)
 
 ## 4.0.6 (2026-09-14)
