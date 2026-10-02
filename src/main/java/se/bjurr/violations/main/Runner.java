@@ -325,7 +325,7 @@ public class Runner implements Runnable {
       this.performTask();
     } catch (final TooManyViolationsException e) {
       throw e;
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD
       throw new RuntimeException(this.toString(), e);
     }
   }
@@ -487,25 +487,23 @@ public class Runner implements Runnable {
       } else {
         parser = Parser.valueOf(parserName).getViolationsParser();
       }
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD
       throw new RuntimeException(
           Arrays.asList(Parser.values()).stream()
-              .map((it) -> it.toString())
+              .map(Parser::toString)
               .collect(Collectors.joining("\n")),
           e);
     }
     final String reporter =
         Optional.ofNullable(configuredViolation.getName())
             .orElse(configuredViolation.getParser().name());
-    final Set<Violation> parsedViolations =
-        violationsApi() //
-            .withViolationsLogger(this.violationsConfig.getViolationsLogger()) //
-            .withViolationsParser(parser) //
-            .inFolder(configuredViolation.getFolder()) //
-            .withPattern(configuredViolation.getRegexp()) //
-            .withReporter(reporter) //
-            .violations();
-    return parsedViolations;
+    return violationsApi() //
+        .withViolationsLogger(this.violationsConfig.getViolationsLogger()) //
+        .withViolationsParser(parser) //
+        .inFolder(configuredViolation.getFolder()) //
+        .withPattern(configuredViolation.getRegexp()) //
+        .withReporter(reporter) //
+        .violations();
   }
 
   private boolean isDefined(final String str) {
