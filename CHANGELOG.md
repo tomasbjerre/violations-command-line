@@ -1,3 +1,16 @@
+## 4.1.3 (2026-10-24)
+
+### Bug Fixes
+
+-  remove literal quotes from gradle.properties description ([3a2d6](https://github.com/tomasbjerre/violations-command-line/commit/3a2d6db6486d952) Tomas Bjerre)  
+
+### Dependency updates
+
+- update dependency tools.jackson.core:jackson-databind to v3.2.4 (#29) ([80278](https://github.com/tomasbjerre/violations-command-line/commit/80278de56e9a6fd) renovate[bot])  
+- update dependency gradle to v9.8.2 (#28) ([b339a](https://github.com/tomasbjerre/violations-command-line/commit/b339a381c885852) renovate[bot])  
+- update dependency com.github.spotbugs:spotbugs-annotations to v4.10.5 (#27) ([b5557](https://github.com/tomasbjerre/violations-command-line/commit/b5557d022f3c30c) renovate[bot])  
+- update dependency gradle to v9.8.1 (#26) ([cdefa](https://github.com/tomasbjerre/violations-command-line/commit/cdefa6ba7599287) renovate[bot])  
+- update dependency se.bjurr.violations:violations-git-lib-transitives to v2.7.3 (#24) ([84060](https://github.com/tomasbjerre/violations-command-line/commit/840608b1f6a4bd2) renovate[bot])  
 ## 4.1.2 (2026-10-03)
 
 ### Dependency updates
